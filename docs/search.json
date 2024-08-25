@@ -53,7 +53,14 @@
     "href": "index.html#install-ghc",
     "title": "Boom-HS Starting Page",
     "section": "Install GHC",
-    "text": "Install GHC\nIf you have a package manager, preferably use that. It’s around 500 MB. The package name is usually just ghc.\nIf you don’t have one use Stack but that’ll take almost 2 GB.\nIf you’re on Windows then you shouldn’t be using this tutorial. You’re too far outside the programmer culture in general for this to help you. Is there any real chance for you to save your soul? Repent and better your ways.3\n\n\n3 Stack has instructions for Windows as well."
+    "text": "Install GHC\nIf you have a package manager, preferably use that. It’s around 500 MB. The package name is usually just ghc.\nIf you don’t have one use Stack but that’ll take almost 2 GB.\nIf you’re on Windows then you shouldn’t be using this tutorial. You’re too far outside the programmer culture in general for this to help you. Is there any real chance for you to save your soul? Repent and better your ways.3\n3 Stack has instructions for Windows as well."
+  },
+  {
+    "objectID": "index.html#tutorial-name",
+    "href": "index.html#tutorial-name",
+    "title": "Boom-HS Starting Page",
+    "section": "Tutorial Name",
+    "text": "Tutorial Name\n\nHaskell files have the extension .hs. “HS” is also short for something else. Coincidentally, at the end of the linked video you can see the average student reaction as he tries to learn Haskell."
   },
   {
     "objectID": "02_my_funs.html",

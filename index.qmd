@@ -25,3 +25,11 @@ If you're on Windows then you shouldn't be using this tutorial. You're too far o
 
 
 
+## Tutorial Name
+
+![](img/older-meme-but-checks-out.jpg)
+
+Haskell files have the extension `.hs`.
+"HS" is also short for [something else](https://www.youtube.com/watch?v=olm7xC-gBMY).
+Coincidentally, at the end of the linked video you can see the average student reaction as he tries to learn Haskell.
+
