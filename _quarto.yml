@@ -4,7 +4,7 @@ project:
 
 
 website:
-  title: "Rust Remote Debugging in VS Code"
+  title: "A Somewhat Gentle Introduction to Haskell"
   navbar:
     left:
       - href: index.qmd
