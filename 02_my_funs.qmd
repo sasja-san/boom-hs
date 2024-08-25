@@ -1,0 +1,12 @@
+---
+title: 2. The List of Functions
+---
+
+Once you've gone through the basic tools as part of [Part 1](01_elem.qmd) you should have what it takes to complete this.
+
+It's a list of functions, pretty much all from the module `Data.List` which you should write your own versions of.
+
+
+## The List
+
+**TBA**

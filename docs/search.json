@@ -1,0 +1,72 @@
+[
+  {
+    "objectID": "01_elem.html",
+    "href": "01_elem.html",
+    "title": "1. Babys First Haskell Functions",
+    "section": "",
+    "text": "Let’s start with looking at two versions of the same thing. Hopefully this can be a bridge between what you know and the style Haskell uses: Hint: You can click the numbers in the list below and have the corresponding code be highlighted.\nLet’s look at elem:\nSo what’s the type of elem? Run ghci&gt; :t elem and you should get this:\nSmall letters, especially the a correspond to the generic type, like &lt;T&gt; in languages like Java or C++. In this particular case the generic type t (with a restriction Foldable t) represents a structure. So the t could be replaced with List or Set or Seq or many other types.\nLet’s simplify this by forcing the Foldable into a list. This gives us:\nNow that’s A LOT better. It says that the element a has to have the Eq trait/interface.1 This means that the functions == and != has to be defined for a. If it does, then we can search for something of type a in a [a] (“list of a:s”) and we will get back a Bool.\nLet’s now get back to myElem.\nThat’s a bit better. Now you check against the first element of the list. But what if the call is elem 'b' \"abc\", then you’ll crash because you used undefined2. Here’s where you have to bring in recursion, so this is the complete function definition:\nIt’s a bit verbose, so given that “or” is defined as this:\nTrying it out in ghci:\nLet’s use it for our myElem function!"
+  },
+  {
+    "objectID": "01_elem.html#tutorial-structure-your-first-function",
+    "href": "01_elem.html#tutorial-structure-your-first-function",
+    "title": "1. Babys First Haskell Functions",
+    "section": "Tutorial Structure / Your First Function",
+    "text": "Tutorial Structure / Your First Function\nThis tutorial will asks you to write your own version of existing library functions. In this first instance you will write myElem :: (Eq a) =&gt; a -&gt; [a] -&gt; Bool. So it has the same type as the library one, just my in front of it, to avoid naming conflicts.\nCreate a file Exercise.hs which looks like this:\n1import Data.List\n2import Data.Char\n\n3myElem :: (Eq a) =&gt; a -&gt; [a] -&gt; Bool\n4myElem e []     = False\n5myElem e (x:xs) = undefined\n\n1\n\nGet all the list functions available in your terminal.\n\n2\n\nWe will need some extra functions for Char manipulation.\n\n3\n\nDeclaration of the type of the function myElem. All things of type a needs to be able to do ==. It takes an a, a list of a and returns a Bool.\n\n4\n\nThe “base case”. When looking for the element e in an empty list, we won’t find it. So we return False.\n\n5\n\nThis is where you’ll put your recursive call.\n\n\nNow complete the function at the last line. Haskell is quite squeamish about indentation, so you might get a few compilation errors before you get it right.\nHere’s an example of correct indentation for if, which also uses the let-in notation for local variable creation:"
+  },
+  {
+    "objectID": "01_elem.html#writing-conventions",
+    "href": "01_elem.html#writing-conventions",
+    "title": "1. Babys First Haskell Functions",
+    "section": "Writing Conventions",
+    "text": "Writing Conventions\nWhen making “alternate” version of existing values you usually stick a ' at the end. So in this case the string s1 becomes s1', pronounced as [s one prime] (swedish: [prim]). The contents of s1' and s2' is the same as s1 and s2 except that any characters not in lower case has been turned into lower case."
+  },
+  {
+    "objectID": "01_elem.html#your-new-best-friend",
+    "href": "01_elem.html#your-new-best-friend",
+    "title": "1. Babys First Haskell Functions",
+    "section": "Your New Best Friend",
+    "text": "Your New Best Friend\nIf you’ve ever used Python you just put in your expression in the prompt and get the resulting value and side effects (such as file I/O & whatnot).\nHaskell is extremely strict regarding its types. When a Python program will run and crash because of a programmer error, a Haskell program refuses to load in the first place.\nTo look a bit at what’s going on here, in ghci try using the :t command. It asks for the type of an expression. First ask about map:\n  ghci&gt; :t map\nThe part (a -&gt; b) means that the first argument is a function, taking something of type a and returning something of type b.\nNow let’s play with it a bit:\n\n\n\n  ghci&gt; :t toLower\n  ghci&gt; :t toLower 'A'\n  ghci&gt; toLower 'A'\n  ghci&gt; :t map toLower\nBecause toLower has the type you saw (when running the above commands in ghci), those types gets bound up in map.\nUsing :t will be one of your primary tools for learning Haskell."
+  },
+  {
+    "objectID": "01_elem.html#fking-around-with-t---finding-out",
+    "href": "01_elem.html#fking-around-with-t---finding-out",
+    "title": "1. Babys First Haskell Functions",
+    "section": "F**king Around With :t - Finding Out",
+    "text": "F**king Around With :t - Finding Out\nFirst let’s look at the function length and then write our own, just to get away from the Foldable nonsense.\nghci&gt; :t length\nlength :: (Foldable t) =&gt; t a -&gt; Int\nNow make your own:\n\nBehaviorImplementation\n\n\nghci&gt; :t myLength\nmyLength :: [a] -&gt; Int\nghci&gt; myLength []\n0\nghci&gt; myLength \"\"\n0\nghci&gt; myLength [1..5]\n5\nghci&gt; myLength \"abc123\"\n6\n\n\nmyLength        :: [a] -&gt; Int\nmyLength    []  = 0\nmyLength (_:xs) = 1 + myLength xs\n\n\n\nAnd also make one that enforces the String type.\n\nBehaviorImplementation\n\n\nghci&gt; :t myStringLength\nmyLength :: String -&gt; Int\nghci&gt; myLength \"\"\n0\nghci&gt; myLength \"1234\"\n4\nghci&gt; myLength [1..5]\n\n&lt;interactive&gt;:76:17: error:\n    • No instance for (Num Char) arising from the literal ‘1’\n    • In the expression: 1\n      In the first argument of ‘myStringLength’, namely ‘[1 .. 4]’\n      In the expression: myStringLength [1 .. 4]\n\n\nmyStringLength    :: String -&gt; Int\nmyStringLength cs = myLength cs\n\n\n\nLet’s look at map again, which in many cases acts as your foreach function.\nghci&gt; :t map\nmap :: (a -&gt; b) -&gt; [a] -&gt; [b]\nNow, BEFORE asking ghci about the type of the below expression, can you figure out what it will be? It’s a matter of search-and-replace with the types that comes from the first argument to map.\n\nQueryAnswer\n\n\nghci&gt; :t map myStringLength\n\n\nmap myStringLength :: [String] -&gt; [Int]\n\n\n\nYou could write a list of strings manually, which is kind of annoying:\n[\"my\", \"list\", \"of\", \"strings\"]\nInstead, try using the function words.\nghci&gt; :t words\nwords :: String -&gt; [String]\nghci&gt; words \"hello everyone reading\"\n[\"hello\",\"everyone\",\"reading\"]\nNow combine map myStringLength with words into something computable. You will need to put parenthenses at the right place for this to work.\n\nNow you have the most basic tools for learning Haskell. On to the exercise."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Boom-HS Starting Page",
+    "section": "",
+    "text": "This is intended as a short and simple way for someone who has a bit of programming experience1 to start at the right end of learning Haskell.2\n1 Mostly made for people doing the AI course at Jönköpings Tekniska Högskola (JTH).2 There’s way too many “What is a Monad?” tutorials out there. Don’t even fuck around with those for your first month. It will be a huge waste of your time.To reach basic proficiency you will need to master three things.\n\nThe basic syntax of lists and datatypes.\nUnderstanding and writing function type signatures.\nSome/most of the functions in Prelude.hs.\n\nThis tutorial aims to guide you through these with minimal effort."
+  },
+  {
+    "objectID": "index.html#about-this-tutorial",
+    "href": "index.html#about-this-tutorial",
+    "title": "Boom-HS Starting Page",
+    "section": "",
+    "text": "This is intended as a short and simple way for someone who has a bit of programming experience1 to start at the right end of learning Haskell.2\n1 Mostly made for people doing the AI course at Jönköpings Tekniska Högskola (JTH).2 There’s way too many “What is a Monad?” tutorials out there. Don’t even fuck around with those for your first month. It will be a huge waste of your time.To reach basic proficiency you will need to master three things.\n\nThe basic syntax of lists and datatypes.\nUnderstanding and writing function type signatures.\nSome/most of the functions in Prelude.hs.\n\nThis tutorial aims to guide you through these with minimal effort."
+  },
+  {
+    "objectID": "index.html#install-ghc",
+    "href": "index.html#install-ghc",
+    "title": "Boom-HS Starting Page",
+    "section": "Install GHC",
+    "text": "Install GHC\nIf you have a package manager, preferably use that. It’s around 500 MB. The package name is usually just ghc.\nIf you don’t have one use Stack but that’ll take almost 2 GB.\nIf you’re on Windows then you shouldn’t be using this tutorial. You’re too far outside the programmer culture in general for this to help you. Is there any real chance for you to save your soul? Repent and better your ways.3\n\n\n3 Stack has instructions for Windows as well."
+  },
+  {
+    "objectID": "02_my_funs.html",
+    "href": "02_my_funs.html",
+    "title": "2. The List of Functions",
+    "section": "",
+    "text": "Once you’ve gone through the basic tools as part of Part 1 you should have what it takes to complete this.\nIt’s a list of functions, pretty much all from the module Data.List which you should write your own versions of."
+  },
+  {
+    "objectID": "02_my_funs.html#the-list",
+    "href": "02_my_funs.html#the-list",
+    "title": "2. The List of Functions",
+    "section": "The List",
+    "text": "The List\nTBA"
+  }
+]

@@ -1,0 +1,32 @@
+project:
+  type: website
+  output-dir: docs
+
+
+website:
+  title: "Rust Remote Debugging in VS Code"
+  navbar:
+    left:
+      - href: index.qmd
+      - href: 01_elem.qmd
+      - href: 02_my_funs.qmd
+
+format:
+  html:
+    theme:
+      dark:   [ slate, .slate-fixes.scss ]
+      light:  [ slate, .slate-fixes.scss ]
+    toc: true
+
+    highlight-style:    nord
+    code-annotations:   true
+    code-line-numbers:  false
+    code-overflow:      scroll
+    code-fold:          false
+
+
+# Gettin muh tufte on
+reference-location: margin
+citation-location: document
+tbl-cap-location: margin
+cap-location: margin
