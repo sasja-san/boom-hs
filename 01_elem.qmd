@@ -360,4 +360,7 @@ You will need to put parenthenses at the right place for this to work.
 ---
 
 Now you have the most basic tools for learning Haskell.
-[On to the exercise](02_my_funs.qmd).
+
+# [To the Exercise $\rightarrow$](02_my_funs.qmd)
+
+

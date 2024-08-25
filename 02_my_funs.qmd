@@ -6,7 +6,634 @@ Once you've gone through the basic tools as part of [Part 1](01_elem.qmd) you sh
 
 It's a list of functions, pretty much all from the module `Data.List` which you should write your own versions of.
 
+:::{.callout-note}
+I'm cheating with the types in this list.
+If there's a `Foldable` or some other such nonsense I'm rewriting that as a list instead.
+That way things won't get too abstract in the beginning.
+:::
 
 ## The List
 
-**TBA**
+
+
+:::{.panel-tabset}
+## elem
+```{.haskell}
+ghci> elem 1 [0,2..10]
+False
+ghci> elem 'b' "abc"
+True
+```
+## Source
+```{.haskell}
+elem :: (Eq a) => a -> [a] -> Bool
+elem _    []  = False
+elem e (x:xs) = (e == x) || myElem e xs
+```
+:::
+
+
+
+
+
+
+:::{.panel-tabset}
+## length
+```{.haskell}
+ghci> length ""
+0
+ghci> length []
+0
+ghci> length "hej du glade"
+12
+ghci> length (words "hej du glade")
+3
+```
+## source
+```{.haskell}
+length :: [a] -> Int
+length    []  = 0
+length (_:xs) = 1 + myLength xs
+```
+:::
+
+
+
+
+
+
+:::{.panel-tabset}
+## null
+```{.haskell}
+ghci> null []
+True
+ghci> null ""
+True
+ghci> null [1..]
+False
+ghci> null "abc"
+False
+```
+## source
+```{.haskell}
+null             :: [a] -> Bool
+null []          =  True
+null (_:_)       =  False
+```
+:::
+
+
+
+
+
+
+
+
+:::{.panel-tabset}
+## head
+```{.haskell}
+ghci> head [1..]
+1
+ghci> head "abc"
+'a'
+ghci> head []
+*** Exception: Prelude.head: empty list
+```
+## source
+```{.haskell}
+head             :: [a] -> a
+head (x:_)       =  x
+head []          =  error "Prelude.head: empty list"
+```
+:::
+
+
+
+
+
+
+
+
+:::{.panel-tabset}
+## tail
+```{.haskell}
+ghci> tail [1..]
+[2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,Interrupted.
+ghci> tail []
+*** Exception: Prelude.tail: empty list
+ghci> tail [42]
+[]
+ghci> tail [42, 69]
+[69]
+```
+## source
+```{.haskell}
+tail             :: [a] -> [a]
+tail (_:xs)      =  xs
+tail []          =  error "Prelude.tail: empty list"
+```
+:::
+
+
+
+
+
+
+
+
+:::{.panel-tabset}
+## last
+```{.haskell}
+ghci> last "abc"
+'c'
+ghci> last []
+*** Exception: Prelude.last: empty list
+```
+## source
+```{.haskell}
+last             :: [a] -> a
+last [x]         =  x
+last (_:xs)      =  last xs
+last []          =  error "Prelude.last: empty list"
+```
+:::
+
+
+
+
+
+
+
+## The Maybe Detour
+
+Haskell has a type called `Maybe`.
+It's one way you could do null values in Haskell, as `NULL` isn't exactly a valid value in the language.
+It's defined as
+
+:::{.column-margin}
+Read the declaration as
+
+> The datatype Maybe is either Nothing or it's Just a, were a is some contained data.
+:::
+```{.haskell}
+data Maybe a = Nothing | Just a
+```
+
+Say that you're trying to read a number from a `String`, then `Maybe` is great way to represent your error:
+
+```{.haskell}
+strToInt :: String -> Maybe Int
+```
+
+If the parsing fails you get `Nothing`.
+If the parsing succeeds you get `Just x`, where `x` is the number found in the `String`.
+
+
+
+
+
+
+
+## Back to the List
+
+:::{.column-margin}
+| 
+| 
+| 
+| 
+| 
+| 
+| This one is a little tricky, so be sure to read the source carefully.
+:::
+:::{.panel-tabset}
+## elemIndex
+```{.haskell}
+ghci> elemIndex 5 [0..10]
+Just 5
+ghci> elemIndex 5 []
+Nothing
+ghci> elemIndex 5 [6..10]
+Nothing
+```
+## source
+```{.haskell}
+elemIndex :: (Eq a) => a -> [a] -> Maybe Int
+elemIndex e xs = ei 0 e xs
+  where
+    ei :: (Eq a) => Int -> a -> [a] -> Maybe Int
+    ei ixCount e    []  = Nothing
+    ei ixCount e (x:xs) = if (e == x)
+                        then Just ixCount
+                        else ei (ixCount + 1) e xs
+```
+:::
+
+
+
+
+
+
+:::{.panel-tabset}
+## take
+```{.haskell}
+ghci> take 0 "abc"
+""
+ghci> take 5 "abc"
+"abc"
+ghci> take 2 (words "foo bar baz")
+["foo","bar"]
+```
+## source
+```{.haskell}
+take                   :: Int -> [a] -> [a]
+take n _      | n <= 0 =  []
+take _ []              =  []
+take n (x:xs)          =  x : take (n-1) xs
+```
+:::
+
+
+
+
+
+
+
+
+
+
+:::{.panel-tabset}
+## drop
+```{.haskell}
+ghci> drop 0 "abc"
+"abc"
+ghci> drop 5 "abc"
+""
+ghci> drop 5 [1..10]
+[6,7,8,9,10]
+```
+## source
+```{.haskell}
+drop                   :: Int -> [a] -> [a]
+drop n xs     | n <= 0 =  xs
+drop _ []              =  []
+drop n (_:xs)          =  drop (n-1) xs
+```
+:::
+
+
+
+
+
+
+
+
+
+:::{.panel-tabset}
+## reverse
+```{.haskell}
+ghci> reverse "Jesus Christ Superstar"
+"ratsrepuS tsirhC suseJ"
+```
+## source
+```{.haskell}
+reverse :: [a] -> [a]
+reverse xs = rev xs []
+  where
+    rev (x:xs) acc = rev xs (x:acc)
+    rev []     acc = acc
+```
+:::
+
+
+
+
+
+
+
+
+
+
+
+## The Pairing Detour
+
+In Haskell there are "pairs" or "tuples". 
+They are constructed with the `(,)` operator/function.
+So 
+
+```{.haskell}
+(,) :: a -> b -> (a,b)
+```
+
+You can always construct a pair with paretheses and a comma.
+
+```{.haskell}
+ghci> let i = 123 :: Int
+ghci> let p = (i, "hello")
+ghci> :t p
+p :: (Int, String)
+ghci> p
+(123,"hello")
+```
+
+The "tuple" isn't limited to two elemnts.
+But when you get up in numbers you **really** should consider using the `data` keyword so that your paired up data can have names for each of the fields.
+
+But here it is:
+
+```{.haskell}
+makeTriple :: a -> b -> c -> (a,b,c)
+makeTriple x y z = (x,y,z)
+```
+
+
+
+
+
+
+
+## The List, Again
+
+:::{.panel-tabset}
+## zip
+```{.haskell}
+ghci> zip [1,2,3] "abc"
+[(1,'a'),(2,'b'),(3,'c')]
+ghci> zip [1..] "xyz"
+[(1,'x'),(2,'y'),(3,'z')]
+ghci> zip [1..] [999999,999998..]
+[(1,999999),(2,999998),(3,999997),(4,999996),(5,999995),(6,999994),(7,999993),(8,99999Interrupted.
+```
+## source
+```{.haskell}
+zip    []      _    = []
+zip     _     []    = []
+zip (x:xs) (y:ys)   = (x,y) : zip xs ys
+```
+:::
+
+
+
+
+
+
+
+
+
+
+:::{.panel-tabset}
+## zipWith
+```{.haskell}
+ghci> zipWith (*) [1,2,3] [10, 0, 100]
+[10,0,300]
+ghci> zipWith (>) [1,2,3] [10, 0, 100]
+[False,True,False]
+```
+## source
+```{.haskell}
+zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+zipWith z (a:as) (b:bs) =  (z a b) : (zipWith z as bs)
+zipWith _     _      _  =  []
+```
+:::
+
+:::{.column-margin}
+| 
+| 
+| 
+| 
+| 
+| 
+| To grasp this, try using it with `:t` in many different ways.
+:::
+
+Once you understand the source for `zipWith`, rewrite your function `myZip` by using `myZipWith`.
+
+
+
+
+
+
+:::{.panel-tabset}
+## takeWhile
+```{.haskell}
+ghci> takeWhile (<3) [1..10]
+[1,2]
+```
+## source
+```{.haskell}
+takeWhile               :: (a -> Bool) -> [a] -> [a]
+takeWhile p []          =  []
+takeWhile p (x:xs) 
+            | p x       =  x : takeWhile p xs
+            | otherwise =  []
+```
+Using `|` is called a "guard". It's a fancier way of doing multiple nested if-else expressions. `otherwise` is an alias for `True`.
+:::
+
+
+
+
+
+
+
+
+:::{.panel-tabset}
+## dropWhile
+```{.haskell}
+ghci> dropWhile (<3) [1..10]
+[3,4,5,6,7,8,9,10]
+```
+## source
+```{.haskell}
+dropWhile               :: (a -> Bool) -> [a] -> [a]
+dropWhile p []          =  []
+dropWhile p xs@(x:xs')
+            | p x       =  dropWhile p xs'
+            | otherwise =  xs
+```
+The syntax with `xs@(x:xs')` says that you can deal with the whole list by using `xs` but you have *also* named the first element as `x` and the tail of the list as `xs'`.
+:::
+
+
+
+
+
+
+
+
+:::{.panel-tabset}
+## filter
+```{.haskell}
+ghci> filter isUpper "BiG GaZOngaZ"
+"BGGZOZ"
+ghci> filter (\x -> (x `mod` 3) == 0) [1..10]
+[3,6,9]
+```
+## source
+```{.haskell}
+filter :: (a -> Bool) -> [a] -> [a]
+filter p []                 = []
+filter p (x:xs) | p x       = x : filter p xs
+                | otherwise = filter p xs
+```
+:::
+
+
+
+
+
+
+
+
+
+
+:::{.panel-tabset}
+## map
+```{.haskell}
+ghci> map (*2) [1..3]
+[2,4,6]
+ghci> let ws = words "a nice list of words"
+ghci> map reverse ws
+["a","ecin","tsil","fo","sdrow"]
+```
+## source
+```{.haskell}
+map :: (a -> b) -> [a] -> [b]
+map _    []  = []
+map f (x:xs) = f x : map f xs
+```
+:::
+
+
+
+
+
+
+
+
+
+:::{.panel-tabset}
+## sum
+```{.haskell}
+ghci> sum [1..100]
+5050
+```
+## source
+```{.haskell}
+{- see foldr -}
+```
+:::
+
+
+
+
+
+
+
+
+:::{.panel-tabset}
+## product
+```{.haskell}
+ghci> product [3,7]
+21
+```
+## source
+```{.haskell}
+{- see foldr -}
+```
+:::
+
+
+
+## Identity Elements of Operations
+
+Consider multiplication or addition.
+Both operations have an "identity element" *i* such that it will return the original value when applying the operation:
+
+```
+x + i_add = x
+x * i_mul = x
+```
+
+For addition we have 0 as `i_add`.
+For multiplication `i_mul` is 1.
+
+
+
+
+
+
+
+## The Final List Functions
+
+
+:::{.panel-tabset}
+## foldr
+```{.haskell}
+ghci> :t foldr
+foldr :: (a -> b -> b) -> b -> [a] -> b
+ghci> let myNewSum = foldr (+) 0
+ghci> :t myNewSum
+myNewSum :: (Num b) => [b] -> b
+ghci> myNewSum [1..100]
+5050
+```
+## source
+```{.haskell}
+foldr            :: (a -> b -> b) -> b -> [a] -> b
+foldr f z []     =  z
+foldr f z (x:xs) =  f x (foldr f z xs)
+```
+:::
+
+
+
+
+
+
+
+
+
+:::{.panel-tabset}
+## foldl
+```{.haskell}
+ghci> :t foldl
+foldl :: (b -> a -> b) -> b -> [a] -> b
+ghci> let myNewProd = foldl (*) 1
+ghci> :t myNewProd
+myNewProd :: )Num a) => [a] -> a
+ghci> myNewProd [3,7]
+21
+```
+## source
+```{.haskell}
+foldl            :: (a -> b -> a) -> a -> [b] -> a
+foldl f z []     =  z
+foldl f z (x:xs) =  foldl f (f z x) xs
+```
+:::
+
+
+---
+
+
+# CONGRATULATIONS
+
+You did it! You completed this Haskell tutorial.
+
+Good job! And good luck with the rest of your work!
+
+
+---
+
+
+## Difficult Bonus Exercise
+
+Import `Data.Map`^[The standard binary tree implementation.] into your program and create a one-liner (or as close as you can make it) to a tree building function:
+
+```{.haskell}
+buildTree :: (Ord k) => [(k,v)] -> Map k v
+```
+
+It should be done by using a `fold` with `insert` as its function argument.
+

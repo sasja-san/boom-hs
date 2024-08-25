@@ -15,6 +15,16 @@ To reach basic proficiency you will need to master three things.
 This tutorial aims to guide you through these with minimal effort.
 
 
+
+
+
+
+
+
+
+
+
+
 ## Install GHC
 
 If you have a package manager, preferably use that. It's around 500 MB. The package name is usually just `ghc`.
@@ -25,11 +35,35 @@ If you're on Windows then you shouldn't be using this tutorial. You're too far o
 
 
 
+
+
+
+
+
+
+
+
+
+
 ## Tutorial Name
 
 ![](img/older-meme-but-checks-out.jpg)
 
 Haskell files have the extension `.hs`.
-"HS" is also short for [something else](https://www.youtube.com/watch?v=olm7xC-gBMY).
+"HS" is also short for [something else, as seen in this video](https://www.youtube.com/watch?v=olm7xC-gBMY).
 Coincidentally, at the end of the linked video you can see the average student reaction as he tries to learn Haskell.
+
+
+
+
+
+
+
+
+
+
+
+
+
+# [Start Here!](01_elem.qmd)
 
