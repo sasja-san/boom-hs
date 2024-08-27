@@ -146,7 +146,6 @@ Do your own implementations of
   * `intersperse`
   * `cycle`
   * `mapAccumL`
-  * `mapAccumR`
 
 Also write a function which replaces the element at a certain index.
 It's usually looks like this:
@@ -155,16 +154,23 @@ It's usually looks like this:
 xs !!= (ix, new) = undefined
 ```
 
-Because Haskell lists are singly linked the access time for this is not very nice, so be careful.
+Because Haskell lists are singly linked the access time for this is not very nice, so be careful if you actually use it.
 
 And a final, quite difficult exercise:
 
 :::{.panel-tabset}
 ## factorialPairs
+Make a function (constant) which is a list of all numbers and the factorial of them.
+So all pairs $(n, n!)$ in one big list.
+```{.haskell}
+factorialPairs :: [(Integer, Integer)]
+```
+
 Take a close look at the `mapAccum` functions.
 The `s` in the type signature is for "State".
-One great use would be to take list `[1..]` and use `mapAccumL` (will only work with the `L` version) to very quickly produce a list of pairs containing `n` and `n!`.
-Pass the product/factorial calculation 
+One great use would be to take list `[1..]` and use `mapAccumL` (will only work with the `L` version) to very quickly produce a list of pairs containing `n` and `fact(n)`.
+
+Remember that small function `snd`? Should fit right in as your outermost function call, to get rid of the paired state variable.
 
 ## source
 ```{.haskell}
