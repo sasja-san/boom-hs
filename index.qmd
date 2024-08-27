@@ -4,13 +4,16 @@ title: Boom-HS Starting Page
 
 ## About this tutorial
 
+This tutorial started as a list of function names on a piece of paper.
+The people who worked through the list on the paper greatly appreciated it as an introduction.
+
 This is intended as a short and simple way for someone who has a bit of programming experience^[Mostly made for people doing the AI course at Jönköpings Tekniska Högskola (JTH).] to start at the *right end* of learning Haskell.^[There's way too many "What is a Monad?" tutorials out there. Don't even fuck around with those for your first month. It will be a huge waste of your time.]
 
 To reach basic proficiency you will need to master three things.
 
   1. The basic syntax of lists and datatypes.
   2. Understanding and writing function type signatures.
-  3. Some/most of the functions in `Prelude.hs`.
+  3. Some/most of the functions in `Prelude` and `Data.List`.
 
 This tutorial aims to guide you through these with minimal effort.
 

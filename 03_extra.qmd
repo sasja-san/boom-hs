@@ -34,7 +34,7 @@ Learning to think about how you want to transform your data *on the type level* 
 
 
 
-## "Operators" and Lambdas
+## "Operators" and Lambdas {#sec-operators}
 
 In Haskell operators are functions.
 This means that `+` and `-` are functions just like you would declare your own `add`.
@@ -140,29 +140,27 @@ ghci> :i Maybe
 
 ## Bonus Exercises
 
+
+
+
+
+
 ### More Lists
 
-Do your own implementations of these
-
-  * `(++)` (call it `(<++>)` or something)
-  * `(!!)`
-  * `concat` (calling your own `(++)`)
-  * `repeat`
-  * `replicate`
-  * `intersperse`
-  * `cycle`
-  * `mapAccumL`
-
-Also write a function which replaces the element at a certain index.
-It's usually looks like this:
-```{.haskell}
-(!!=) :: [a] -> (Int,a) -> [a]
-xs !!= (ix, new) = undefined
-```
 
 Because Haskell lists are singly linked the access time for this is not very nice, so be careful if you actually use it.
 
-And a final, quite difficult exercise:
+
+
+
+
+
+
+### Difficult List Functions
+
+Write your own version of `mapAccumL`.
+
+Building on that, a final, quite difficult exercise:
 
 :::{.panel-tabset}
 ## factorialPairs
@@ -196,9 +194,9 @@ Import `Data.Map`^[The standard binary tree implementation. Import it with `impo
 buildTree :: (Ord k) => [(k,v)] -> Map k v
 ```
 
-It should be done by using a `fold` (list function) with `M.insert` as its function argument.
+It should be done by using a `fold` (list version) with `M.insert` as its function argument.
 Look at `M.empty` as your *zero* argument.
-Search for `Data.Map` on Hoogle for more information.
+Search for `Data.Map` on Hoogle^[Once you reach Hoogle the page for `Data.Map` click on `Data.Map.Strict` to get the full list of available functions.] for more information.
 
 
 

@@ -186,7 +186,7 @@ window.Quarto = {
    
   <ul>
   <li><a href="#hoogle" id="toc-hoogle" class="nav-link active" data-scroll-target="#hoogle">Hoogle</a></li>
-  <li><a href="#operators-and-lambdas" id="toc-operators-and-lambdas" class="nav-link" data-scroll-target="#operators-and-lambdas">“Operators” and Lambdas</a>
+  <li><a href="#sec-operators" id="toc-sec-operators" class="nav-link" data-scroll-target="#sec-operators">“Operators” and Lambdas</a>
   <ul class="collapse">
   <li><a href="#stupid-but-valid-haskell" id="toc-stupid-but-valid-haskell" class="nav-link" data-scroll-target="#stupid-but-valid-haskell">Stupid but Valid Haskell</a></li>
   </ul></li>
@@ -194,6 +194,7 @@ window.Quarto = {
   <li><a href="#bonus-exercises" id="toc-bonus-exercises" class="nav-link" data-scroll-target="#bonus-exercises">Bonus Exercises</a>
   <ul class="collapse">
   <li><a href="#more-lists" id="toc-more-lists" class="nav-link" data-scroll-target="#more-lists">More Lists</a></li>
+  <li><a href="#difficult-list-functions" id="toc-difficult-list-functions" class="nav-link" data-scroll-target="#difficult-list-functions">Difficult List Functions</a></li>
   <li><a href="#difficult-search-tree-library-glue-ing" id="toc-difficult-search-tree-library-glue-ing" class="nav-link" data-scroll-target="#difficult-search-tree-library-glue-ing">Difficult Search Tree Library Glue-ing</a></li>
   </ul></li>
   <li><a href="#thats-all" id="toc-thats-all" class="nav-link" data-scroll-target="#thats-all">That’s All!</a></li>
@@ -236,8 +237,8 @@ window.Quarto = {
 <p>Learning to think about how you want to transform your data <em>on the type level</em> really is key to mastering Haskell.</p>
 </section>
 </section>
-<section id="operators-and-lambdas" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="operators-and-lambdas">“Operators” and Lambdas</h2>
+<section id="sec-operators" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="sec-operators">“Operators” and Lambdas</h2>
 <p>In Haskell operators are functions. This means that <code>+</code> and <code>-</code> are functions just like you would declare your own <code>add</code>.</p>
 <p>This means that you can declare your own operators, which the text parsing library has taken quite a few liberties when doing, as can be seen in this example from the book <a href="https://book.realworldhaskell.org/read/using-parsec.html">Real World Haskell, available for free online</a>:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode haskell code-with-copy"><code class="sourceCode haskell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- file: ch16/HttpRequestParser.hs</span></span>
@@ -303,34 +304,24 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="bonus-exercises">Bonus Exercises</h2>
 <section id="more-lists" class="level3">
 <h3 class="anchored" data-anchor-id="more-lists">More Lists</h3>
-<p>Do your own implementations of these</p>
-<ul>
-<li><code>(++)</code> (call it <code>(&lt;++&gt;)</code> or something)</li>
-<li><code>(!!)</code></li>
-<li><code>concat</code> (calling your own <code>(++)</code>)</li>
-<li><code>repeat</code></li>
-<li><code>replicate</code></li>
-<li><code>intersperse</code></li>
-<li><code>cycle</code></li>
-<li><code>mapAccumL</code></li>
-</ul>
-<p>Also write a function which replaces the element at a certain index. It’s usually looks like this:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode haskell code-with-copy"><code class="sourceCode haskell"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ot">(!!=) ::</span> [a] <span class="ot">-&gt;</span> (<span class="dt">Int</span>,a) <span class="ot">-&gt;</span> [a]</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>xs <span class="op">!!=</span> (ix, new) <span class="ot">=</span> <span class="fu">undefined</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Because Haskell lists are singly linked the access time for this is not very nice, so be careful if you actually use it.</p>
-<p>And a final, quite difficult exercise:</p>
+</section>
+<section id="difficult-list-functions" class="level3">
+<h3 class="anchored" data-anchor-id="difficult-list-functions">Difficult List Functions</h3>
+<p>Write your own version of <code>mapAccumL</code>.</p>
+<p>Building on that, a final, quite difficult exercise:</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">factorialPairs</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">source</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <p>Make a function (constant) which is a list of all numbers and the factorial of them. So all pairs <span class="math inline">\((n, n!)\)</span> in one big list.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode haskell code-with-copy"><code class="sourceCode haskell"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ot">factorialPairs ::</span> [(<span class="dt">Integer</span>, <span class="dt">Integer</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode haskell code-with-copy"><code class="sourceCode haskell"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ot">factorialPairs ::</span> [(<span class="dt">Integer</span>, <span class="dt">Integer</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Take a close look at the <code>mapAccum</code> functions. The <code>s</code> in the type signature is for “State”. One great use would be to take list <code>[1..]</code> and use <code>mapAccumL</code> (will only work with the <code>L</code> version) to very quickly produce a list of pairs containing <code>n</code> and <code>fact(n)</code>.</p>
 <p>Remember that small function <code>snd</code>? Should fit right in as your outermost function call, to get rid of the paired state variable.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<div class="sourceCode" id="cb11"><pre class="sourceCode haskell code-with-copy"><code class="sourceCode haskell"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ot">factorialPairs ::</span> [(<span class="dt">Integer</span>, <span class="dt">Integer</span>)]</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>factorialPairs <span class="ot">=</span> <span class="fu">snd</span> <span class="op">$</span> mapAccumL (\fn n <span class="ot">-&gt;</span> <span class="kw">let</span> fn' <span class="ot">=</span> n<span class="op">*</span>fn <span class="kw">in</span> (fn', (n,fn'))) <span class="dv">1</span> [<span class="dv">1</span><span class="op">..</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode haskell code-with-copy"><code class="sourceCode haskell"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ot">factorialPairs ::</span> [(<span class="dt">Integer</span>, <span class="dt">Integer</span>)]</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>factorialPairs <span class="ot">=</span> <span class="fu">snd</span> <span class="op">$</span> mapAccumL (\fn n <span class="ot">-&gt;</span> <span class="kw">let</span> fn' <span class="ot">=</span> n<span class="op">*</span>fn <span class="kw">in</span> (fn', (n,fn'))) <span class="dv">1</span> [<span class="dv">1</span><span class="op">..</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -338,9 +329,9 @@ window.Quarto = {
 <section id="difficult-search-tree-library-glue-ing" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="difficult-search-tree-library-glue-ing">Difficult Search Tree Library Glue-ing</h3>
 <p>Import <code>Data.Map</code><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> into your program and create a one-liner (or as close as you can make it) to a tree building function:</p>
-<div class="no-row-height column-margin column-container"><div id="fn2"><p><sup>2</sup>&nbsp;The standard binary tree implementation. Import it with <code>import qualified Data.Map as M</code> in order to avoid naming conflicts.</p></div></div><div class="sourceCode" id="cb12"><pre class="sourceCode haskell code-with-copy"><code class="sourceCode haskell"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ot">buildTree ::</span> (<span class="dt">Ord</span> k) <span class="ot">=&gt;</span> [(k,v)] <span class="ot">-&gt;</span> <span class="dt">Map</span> k v</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>It should be done by using a <code>fold</code> (list function) with <code>M.insert</code> as its function argument. Look at <code>M.empty</code> as your <em>zero</em> argument. Search for <code>Data.Map</code> on Hoogle for more information.</p>
-</section>
+<div class="no-row-height column-margin column-container"><div id="fn2"><p><sup>2</sup>&nbsp;The standard binary tree implementation. Import it with <code>import qualified Data.Map as M</code> in order to avoid naming conflicts.</p></div></div><div class="sourceCode" id="cb11"><pre class="sourceCode haskell code-with-copy"><code class="sourceCode haskell"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ot">buildTree ::</span> (<span class="dt">Ord</span> k) <span class="ot">=&gt;</span> [(k,v)] <span class="ot">-&gt;</span> <span class="dt">Map</span> k v</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>It should be done by using a <code>fold</code> (list version) with <code>M.insert</code> as its function argument. Look at <code>M.empty</code> as your <em>zero</em> argument. Search for <code>Data.Map</code> on Hoogle<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> for more information.</p>
+<div class="no-row-height column-margin column-container"><div id="fn3"><p><sup>3</sup>&nbsp;Once you reach Hoogle the page for <code>Data.Map</code> click on <code>Data.Map.Strict</code> to get the full list of available functions.</p></div></div></section>
 </section>
 <section id="thats-all" class="level2">
 <h2 class="anchored" data-anchor-id="thats-all">That’s All!</h2>

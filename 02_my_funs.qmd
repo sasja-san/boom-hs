@@ -643,17 +643,46 @@ foldl f z (x:xs) =  foldl f (f z x) xs
 :::
 
 
----
 
+
+For the remainder you'll just get the function names which you should implement.[I'm too lazy to write/dig up sources for all these.]{.aside}
+You might want to read [the section on operators](03_extra.qmd#sec-operators) to get some of these right.
+
+  * `lookup`
+  * `(!!)` (call it `(<!!>)` or something)
+  * `(!!=)` (see below)
+  * `insert`
+  * `delete`
+  * `(++)`
+  * `concat` (calling your own `(++)`)
+  * `concatMap` (inspect with `:t +d concatMap`)
+  * `repeat`
+  * `replicate`
+  * `intersperse`
+  * `cycle`
+  * `splitAt`
+  * `span` / `break`
+  * `group`
+  * `isPrefixOf`
+  * `isSubsequenceOf`
+
+
+Also write a function which replaces the element at a certain index.
+It's usually looks like this:
+```{.haskell}
+(!!=) :: [a] -> (Int, a) -> [a]
+xs !!= (ix, new) = undefined
+```
+
+
+
+---
 
 # CONGRATULATIONS
 
 You did it! You completed this Haskell tutorial.
 
-
-On the next page are some bonus exercises.
-You really should do most (skip `mapAccumL` if it seems too hard) of those pertaining to lists.
-
+On the next page you will find some information about the next step for a Haskell user, as well as two trickier exercises.
 
 # [Final Words and Bonus Exercises $\rightarrow$](03_extra.qmd)
 

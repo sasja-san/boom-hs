@@ -624,7 +624,7 @@ To grasp this, try using it with <code>:t</code> in many different ways.</div>
 x * i_mul = x</code></pre>
 <p>For addition we have 0 as <code>i_add</code>. For multiplication <code>i_mul</code> is 1.</p>
 </section>
-<section id="the-final-list-functions" class="level2">
+<section id="the-final-list-functions" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="the-final-list-functions">The Final List Functions</h2>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-19-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-19-1" role="tab" aria-controls="tabset-19-1" aria-selected="true">foldr</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-19-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-19-2" role="tab" aria-controls="tabset-19-2" aria-selected="false">source</a></li></ul>
@@ -664,12 +664,35 @@ x * i_mul = x</code></pre>
 </div>
 </div>
 </div>
+<div class="page-columns page-full"><p>For the remainder you’ll just get the function names which you should implement. You might want to read <a href="./03_extra.html#sec-operators">the section on operators</a> to get some of these right.</p><div class="no-row-height column-margin column-container"><span class="margin-aside">I’m too lazy to write/dig up sources for all these.</span></div></div>
+<ul>
+<li><code>lookup</code></li>
+<li><code>(!!)</code> (call it <code>(&lt;!!&gt;)</code> or something)</li>
+<li><code>(!!=)</code> (see below)</li>
+<li><code>insert</code></li>
+<li><code>delete</code></li>
+<li><code>(++)</code></li>
+<li><code>concat</code> (calling your own <code>(++)</code>)</li>
+<li><code>concatMap</code> (inspect with <code>:t +d concatMap</code>)</li>
+<li><code>repeat</code></li>
+<li><code>replicate</code></li>
+<li><code>intersperse</code></li>
+<li><code>cycle</code></li>
+<li><code>splitAt</code></li>
+<li><code>span</code> / <code>break</code></li>
+<li><code>group</code></li>
+<li><code>isPrefixOf</code></li>
+<li><code>isSubsequenceOf</code></li>
+</ul>
+<p>Also write a function which replaces the element at a certain index. It’s usually looks like this:</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode haskell code-with-copy"><code class="sourceCode haskell"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="ot">(!!=) ::</span> [a] <span class="ot">-&gt;</span> (<span class="dt">Int</span>, a) <span class="ot">-&gt;</span> [a]</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>xs <span class="op">!!=</span> (ix, new) <span class="ot">=</span> <span class="fu">undefined</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <hr>
 </section>
 <section id="congratulations" class="level1">
 <h1>CONGRATULATIONS</h1>
 <p>You did it! You completed this Haskell tutorial.</p>
-<p>On the next page are some bonus exercises. You really should do most (skip <code>mapAccumL</code> if it seems too hard) of those pertaining to lists.</p>
+<p>On the next page you will find some information about the next step for a Haskell user, as well as two trickier exercises.</p>
 </section>
 <section id="final-words-and-bonus-exercises-rightarrow" class="level1">
 <h1><a href="./03_extra.html">Final Words and Bonus Exercises <span class="math inline">\(\rightarrow\)</span></a></h1>
