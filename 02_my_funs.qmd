@@ -12,8 +12,30 @@ If there's a `Foldable` or some other such nonsense I'm rewriting that as a list
 That way things won't get too abstract in the beginning.
 :::
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## The List
 
+As mentioned in the [previous chapter](01_elem.qmd) you should write `my`-versions of the functions in the list.
+So when you see that the function name is `length` you should write `myLength` in your source file.
+
+When looking at the functions in `ghci` remember that you can use this, which usually fixes the `Foldable` thing into a list.
+
+```{.haskell}
+ghci> :t +d elem
+```
 
 
 :::{.panel-tabset}
@@ -87,8 +109,6 @@ null (_:_)       =  False
 
 
 
-
-
 :::{.panel-tabset}
 ## head
 ```{.haskell}
@@ -106,8 +126,6 @@ head (x:_)       =  x
 head []          =  error "Prelude.head: empty list"
 ```
 :::
-
-
 
 
 
@@ -287,12 +305,15 @@ drop n (_:xs)          =  drop (n-1) xs
 
 
 
-
 :::{.panel-tabset}
 ## reverse
 ```{.haskell}
 ghci> reverse "Jesus Christ Superstar"
 "ratsrepuS tsirhC suseJ"
+ghci> map reverse (words "Jesus Christ Superstar")
+["suseJ","tsirhC","ratsrepuS"]
+ghci> unwords (map reverse (words "Jesus Christ Superstar"))
+"suseJ tsirhC ratsrepuS"
 ```
 ## source
 ```{.haskell}
@@ -302,6 +323,12 @@ reverse xs = rev xs []
     rev (x:xs) acc = rev xs (x:acc)
     rev []     acc = acc
 ```
+:::
+:::{.column-margin}
+The function `unwords` used here are for `String`/`[Char]` (same thing) only.
+For a non-`Char`-based concatenation of lists, look at `concat`.
+You should probably implement your own version of `concat` as well.
+Use the function `(++) :: [a] -> [a] -> [a]` in your implementation.
 :::
 
 
@@ -345,6 +372,8 @@ makeTriple :: a -> b -> c -> (a,b,c)
 makeTriple x y z = (x,y,z)
 ```
 
+For un-pairing you use the functions `fst` and `snd`.
+Write your own versions of `fst` and `snd`.
 
 
 
@@ -624,16 +653,7 @@ You did it! You completed this Haskell tutorial.
 Good job! And good luck with the rest of your work!
 
 
----
 
+# [Final Words and Bonus Exercises $\rightarrow$](03_extra.qmd)
 
-## Difficult Bonus Exercise
-
-Import `Data.Map`^[The standard binary tree implementation.] into your program and create a one-liner (or as close as you can make it) to a tree building function:
-
-```{.haskell}
-buildTree :: (Ord k) => [(k,v)] -> Map k v
-```
-
-It should be done by using a `fold` with `insert` as its function argument.
 

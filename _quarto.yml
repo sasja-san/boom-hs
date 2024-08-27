@@ -10,6 +10,7 @@ website:
       - href: index.qmd
       - href: 01_elem.qmd
       - href: 02_my_funs.qmd
+      - href: 03_extra.qmd
 
 format:
   html:

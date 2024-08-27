@@ -13,7 +13,7 @@ int fact(int n)           /* <2> */
 }
 ```
 1. The function *declaration*. Tells the compiler "this function exists" which helps out with ordering of function calls. Without this `main()` will always have to be last in `main.c`
-2. The function *definition*. What the compiler uses to make assembly.
+2. The function *definition* starts here. What the compiler uses to make assembly. First `int` is the return type, then comes the function name then the arguments. The `n` here is equivalent to what's to the left of the `=` in the Haskell function.
 3. A recursive call and a `return` statement. Because in C we differ between "statements" (things ending in `;` and some things using keywords like `for`) and "expressions" (all things arithmetic). `return (x + fact(x));` is a statement but `(x + fact(x))` is an expression. 
 
 
@@ -21,7 +21,7 @@ int fact(int n)           /* <2> */
 fact :: Int -> Int          -- <1>
 fact n = n * (fact (n-1))   -- <2>
 ```
-1. This is the "type signature" of the function. It says that it takes an `Int` (the first mention) and returns (the second mention) an `Int`.
+1. This is the *type signature* of the function. It says that it takes an `Int` (the first mention) and returns (the second mention) an `Int`.
 2. The n to the left of `=` is the argument to the function. Everything on the right side of `=` is the "return" expression. 
 
 
@@ -44,8 +44,8 @@ elem :: (Foldable t, Eq a) => a -> t a -> Bool
 ```
 
 Small letters, especially the `a` correspond to the generic type, like `<T>` in languages like Java or C++.
-In this particular case the generic type t (with a restriction `Foldable t`) represents a structure.
-So the `t` could be replaced with `List` or `Set` or `Seq` or many other types.
+In this particular case the generic type `t` (with a restriction `Foldable t`) represents a structure.
+So the `t` could be replaced with `List` or `Set` or `BinarySearchTree` or many other types.
 
 Let's simplify this by forcing the `Foldable` into a list. This gives us:
 
@@ -59,7 +59,7 @@ elem :: (Eq a) => a -> [a] -> Bool
 ```
 
 Now that's A LOT better. It says that the element `a` has to have the `Eq` trait/interface.^[It's written `class` in Haskell but spoken about as "typeclass".]
-This means that the functions `==` and `!=` has to be defined for `a`.
+This means that the functions `==` and `/=` has to be defined for `a`.
 If it does, then we can search for something of type `a` in a `[a]` ("list of a:s") and we will get back a `Bool`.
 
 
@@ -74,6 +74,21 @@ If it does, then we can search for something of type `a` in a `[a]` ("list of a:
 This tutorial will asks you to write your own version of existing library functions.
 In this first instance you will write `myElem :: (Eq a) => a -> [a] -> Bool`.
 So it has the same type as the library one, just `my` in front of it, to avoid naming conflicts.
+
+:::{.column-margin}
+<!-- quarto newlines fixes rendering -->
+### Basic `ghci` usage.
+
+| `$ ghci File.hs` to initially load a file.
+|
+| `ghci> :l File.hs` to load the file from within `ghci`.
+|
+| **DON'T MISS!!!**
+| `ghci> :r` to reload the file last loaded.
+|
+| `ghci> myElem 'b' "abc"` An expression calling `myElem` to evaluate in `ghci`.
+
+:::
 
 Create a file `Exercise.hs` which looks like this:
 
@@ -96,17 +111,17 @@ Haskell is quite squeamish about indentation, so you might get a few compilation
 
 Here's an example of correct indentation for `if`, which also uses the `let-in` notation for local variable creation:
 
-
 :::{.column-margin}
-## Writing Conventions
-
+<!-- quarto newlines fixes rendering -->
+| 
+| 
+| 
+| 
+### Writing Conventions
 When making "alternate" version of existing values you usually stick a `'` at the end.
 So in this case the string `s1` becomes `s1'`, pronounced as [s one prime] (swedish: [prim]).
 The contents of `s1'` and `s2'` is the same as `s1` and `s2` except that any characters not in lower case has been turned into lower case.
 :::
-
-
-
 ```{.haskell}
 isCoolBeans :: String -> String -> String
 isCoolBeans s1 s2 =
@@ -226,11 +241,7 @@ First ask about map:
 ```
 The part `(a -> b)` means that the first argument is a function, taking something of type `a` and returning something of type `b`.
 
-Now let's play with it a bit:
-
-:::{.column-margin}
-![](img/friendship-ended-with-expr.jpeg)
-:::
+Now let's play with it a bit, try these in `ghci`:
 ```{.haskell}
   ghci> :t toLower
   ghci> :t toLower 'A'
@@ -239,7 +250,18 @@ Now let's play with it a bit:
 ```
 Because `toLower` has the type you saw (when running the above commands in `ghci`), those types gets bound up in `map`.
 
+
+
+:::{.column-margin}
+| 
+| 
+| 
+|  
+| 
 Using `:t` will be one of your primary tools for learning Haskell.
+:::
+
+![](img/friendship-ended-with-expr.jpeg)
 
 
 
@@ -254,7 +276,7 @@ Using `:t` will be one of your primary tools for learning Haskell.
 ## F**king Around With `:t` - Finding Out
 
 
-First let's look at the function `length` and then write our own, just to get away from the `Foldable` nonsense.
+First let's look at the function `length` and then write our own, just to get away from the `Foldable` nonsense.[You could use `ghci> :t +d length` and that will work to **d**efault the `Foldable` to a list. It will *often* work, but it's in no way a sure thing.]{.aside}
 
 ```{.haskell}
 ghci> :t length
@@ -295,11 +317,11 @@ And also make one that enforces the `String` type.
 ```{.haskell}
 ghci> :t myStringLength
 myLength :: String -> Int
-ghci> myLength ""
+ghci> myStringLength ""
 0
-ghci> myLength "1234"
+ghci> myStringLength "1234"
 4
-ghci> myLength [1..5]
+ghci> myStringLength [1..5]
 
 <interactive>:76:17: error:
     • No instance for (Num Char) arising from the literal ‘1’

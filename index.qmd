@@ -24,8 +24,14 @@ This tutorial aims to guide you through these with minimal effort.
 
 
 
-
 ## Install GHC
+:::{.column-margin}
+#### Note On Installing
+
+Using your OS's package manager should be fine for any small school task, but if you ever need a proper install then you should be using the tool [`ghcup`](https://www.haskell.org/ghcup/) which will manage which version of GHC you install.
+
+If you're having trouble installing GHC, use [`ghcup`](https://www.haskell.org/ghcup/).
+:::
 
 If you have a package manager, preferably use that. It's around 500 MB. The package name is usually just `ghc`.
 
@@ -65,5 +71,5 @@ Coincidentally, at the end of the linked video you can see the average student r
 
 
 
-# [Start Here!](01_elem.qmd)
+# [$\rightarrow$ Start Here! $\leftarrow$](01_elem.qmd)
 

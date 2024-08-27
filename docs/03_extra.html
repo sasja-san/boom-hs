@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Boom-HS Starting Page – A Somewhat Gentle Introduction to Haskell</title>
+<title>3. Finishing Up – A Somewhat Gentle Introduction to Haskell</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -69,35 +103,6 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 </head>
 
@@ -119,7 +124,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Boom-HS Starting Page</span></a>
   </li>  
   <li class="nav-item">
@@ -131,7 +136,7 @@ window.Quarto = {
 <span class="menu-text">2. The List of Functions</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./03_extra.html"> 
+    <a class="nav-link active" href="./03_extra.html" aria-current="page"> 
 <span class="menu-text">3. Finishing Up</span></a>
   </li>  
 </ul>
@@ -151,10 +156,18 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#about-this-tutorial" id="toc-about-this-tutorial" class="nav-link active" data-scroll-target="#about-this-tutorial">About this tutorial</a></li>
-  <li><a href="#install-ghc" id="toc-install-ghc" class="nav-link" data-scroll-target="#install-ghc">Install GHC</a></li>
-  <li><a href="#tutorial-name" id="toc-tutorial-name" class="nav-link" data-scroll-target="#tutorial-name">Tutorial Name</a></li>
-  <li><a href="#rightarrow-start-here-leftarrow" id="toc-rightarrow-start-here-leftarrow" class="nav-link" data-scroll-target="#rightarrow-start-here-leftarrow"><span class="math inline">\(\rightarrow\)</span> Start Here! <span class="math inline">\(\leftarrow\)</span></a></li>
+  <li><a href="#hoogle" id="toc-hoogle" class="nav-link active" data-scroll-target="#hoogle">Hoogle</a></li>
+  <li><a href="#operators-and-lambdas" id="toc-operators-and-lambdas" class="nav-link" data-scroll-target="#operators-and-lambdas">“Operators” and Lambdas</a>
+  <ul class="collapse">
+  <li><a href="#stupid-but-valid-haskell" id="toc-stupid-but-valid-haskell" class="nav-link" data-scroll-target="#stupid-but-valid-haskell">Stupid but Valid Haskell</a></li>
+  </ul></li>
+  <li><a href="#next-level-t" id="toc-next-level-t" class="nav-link" data-scroll-target="#next-level-t">Next Level <code>:t</code></a></li>
+  <li><a href="#bonus-exercises" id="toc-bonus-exercises" class="nav-link" data-scroll-target="#bonus-exercises">Bonus Exercises</a>
+  <ul class="collapse">
+  <li><a href="#more-lists" id="toc-more-lists" class="nav-link" data-scroll-target="#more-lists">More Lists</a></li>
+  <li><a href="#difficult-search-tree-library-glue-ing" id="toc-difficult-search-tree-library-glue-ing" class="nav-link" data-scroll-target="#difficult-search-tree-library-glue-ing">Difficult Search Tree Library Glue-ing</a></li>
+  </ul></li>
+  <li><a href="#thats-all" id="toc-thats-all" class="nav-link" data-scroll-target="#thats-all">That’s All!</a></li>
   </ul>
 </nav>
     </div>
@@ -163,7 +176,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Boom-HS Starting Page</h1>
+<h1 class="title">3. Finishing Up</h1>
 </div>
 
 
@@ -180,35 +193,127 @@ window.Quarto = {
 </header>
 
 
-<section id="about-this-tutorial" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="about-this-tutorial">About this tutorial</h2>
-<p>This is intended as a short and simple way for someone who has a bit of programming experience<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> to start at the <em>right end</em> of learning Haskell.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
-<div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;Mostly made for people doing the AI course at Jönköpings Tekniska Högskola (JTH).</p></div><div id="fn2"><p><sup>2</sup>&nbsp;There’s way too many “What is a Monad?” tutorials out there. Don’t even fuck around with those for your first month. It will be a huge waste of your time.</p></div></div><p>To reach basic proficiency you will need to master three things.</p>
-<ol type="1">
-<li>The basic syntax of lists and datatypes.</li>
-<li>Understanding and writing function type signatures.</li>
-<li>Some/most of the functions in <code>Prelude.hs</code>.</li>
-</ol>
-<p>This tutorial aims to guide you through these with minimal effort.</p>
+<p>Good job working your way through the list!</p>
+<p>Here are some final links, tips and bonus exercises.</p>
+<section id="hoogle" class="level2">
+<h2 class="anchored" data-anchor-id="hoogle">Hoogle</h2>
+<p>As a next step you should look at Hoogle:</p>
+<section id="httpshoogle.haskell.org" class="level4">
+<h4 class="anchored" data-anchor-id="httpshoogle.haskell.org"><a href="https://hoogle.haskell.org" class="uri">https://hoogle.haskell.org</a></h4>
+<p>It’s a great tool for you to search for already existing functions. Try searching for the type of one of the most fundamental Haskell functions:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode haskell code-with-copy"><code class="sourceCode haskell"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>(b <span class="ot">-&gt;</span> c) <span class="ot">-&gt;</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> c</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Or you could search for something simpler:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode haskell code-with-copy"><code class="sourceCode haskell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>[a] <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> [a]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Learning to think about how you want to transform your data <em>on the type level</em> really is key to mastering Haskell.</p>
 </section>
-<section id="install-ghc" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="install-ghc">Install GHC</h2>
+</section>
+<section id="operators-and-lambdas" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="operators-and-lambdas">“Operators” and Lambdas</h2>
+<p>In Haskell operators are functions. This means that <code>+</code> and <code>-</code> are functions just like you would declare your own <code>add</code>.</p>
+<p>This means that you can declare your own operators, which the text parsing library has taken quite a few liberties when doing, as can be seen in this example from the book <a href="https://book.realworldhaskell.org/read/using-parsec.html">Real World Haskell, available for free online</a>:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode haskell code-with-copy"><code class="sourceCode haskell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- file: ch16/HttpRequestParser.hs</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ot">p_headers ::</span> <span class="dt">CharParser</span> st [(<span class="dt">String</span>, <span class="dt">String</span>)]</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>p_headers <span class="ot">=</span> header <span class="ot">`manyTill`</span> crlf</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="kw">where</span> header <span class="ot">=</span> liftA2 (,) fieldName (char <span class="ch">':'</span> <span class="op">*&gt;</span> spaces <span class="op">*&gt;</span> contents)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        contents <span class="ot">=</span> liftA2 (<span class="op">++</span>) (many1 notEOL <span class="op">&lt;*</span> crlf)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                               (continuation <span class="op">&lt;|&gt;</span> <span class="fu">pure</span> [])</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        continuation <span class="ot">=</span> liftA2 (<span class="op">:</span>) (<span class="ch">' '</span> <span class="op">&lt;$</span> many1 (oneOf <span class="st">" \t"</span>)) contents</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        fieldName <span class="ot">=</span> (<span class="op">:</span>) <span class="op">&lt;$&gt;</span> letter <span class="op">&lt;*&gt;</span> many fieldChar</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        fieldChar <span class="ot">=</span> letter <span class="op">&lt;|&gt;</span> digit <span class="op">&lt;|&gt;</span> oneOf <span class="st">"-_"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
-<div class="no-row-height column-margin column-container"><section id="note-on-installing" class="level4">
-<h4 class="anchored" data-anchor-id="note-on-installing">Note On Installing</h4>
-<p>Using your OS’s package manager should be fine for any small school task, but if you ever need a proper install then you should be using the tool <a href="https://www.haskell.org/ghcup/"><code>ghcup</code></a> which will manage which version of GHC you install.</p>
-<p>If you’re having trouble installing GHC, use <a href="https://www.haskell.org/ghcup/"><code>ghcup</code></a>.</p>
-</section></div><p>If you have a package manager, preferably use that. It’s around 500 MB. The package name is usually just <code>ghc</code>.</p>
-<p>If you don’t have one use <a href="https://docs.haskellstack.org/en/stable/">Stack</a> but that’ll take almost 2 GB.</p>
-<p>If you’re on Windows then you shouldn’t be using this tutorial. You’re too far outside the programmer culture in general for this to help you. Is there any real chance for you to save your soul? Repent and better your ways.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
-<div class="no-row-height column-margin column-container"><div id="fn3"><p><sup>3</sup>&nbsp;Stack has instructions for Windows as well.</p></div></div></section>
-<section id="tutorial-name" class="level2">
-<h2 class="anchored" data-anchor-id="tutorial-name">Tutorial Name</h2>
-<p><img src="img/older-meme-but-checks-out.jpg" class="img-fluid"></p>
-<p>Haskell files have the extension <code>.hs</code>. “HS” is also short for <a href="https://www.youtube.com/watch?v=olm7xC-gBMY">something else, as seen in this video</a>. Coincidentally, at the end of the linked video you can see the average student reaction as he tries to learn Haskell.</p>
+<div class="no-row-height column-margin column-container"><div class="">
+<p><strong>PRO TIP:</strong> Don’t try to understand this piece of code, instead marvel at the seemingly endless onslaught of combining operators.</p>
+</div></div><p>Let’s toy around with it a bit, to see how it works. This is three definitions of the same thing.</p>
+<div class="sourceCode" id="annotated-cell-4"><pre class="sourceCode haskell code-annotation-code code-with-copy code-annotated"><code class="sourceCode haskell"><span id="annotated-cell-4-1"><a href="#annotated-cell-4-1" aria-hidden="true" tabindex="-1"></a><span class="ot">subtractTwo ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Int</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-4-2" class="code-annotation-target"><a href="#annotated-cell-4-2" aria-hidden="true" tabindex="-1"></a>subtractTwo x <span class="ot">=</span> x <span class="op">-</span> <span class="dv">2</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-4-3" class="code-annotation-target"><a href="#annotated-cell-4-3" aria-hidden="true" tabindex="-1"></a>subtractTwo <span class="ot">=</span> \x <span class="ot">-&gt;</span> x <span class="op">-</span> <span class="dv">2</span></span>
+<a class="code-annotation-anchor" data-target-cell="annotated-cell-4" data-target-annotation="3" onclick="event.preventDefault();">3</a><span id="annotated-cell-4-4" class="code-annotation-target"><a href="#annotated-cell-4-4" aria-hidden="true" tabindex="-1"></a>subtractTwo <span class="ot">=</span> (<span class="op">-</span> <span class="dv">2</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<dl class="code-annotation-container-grid">
+<dt data-target-cell="annotated-cell-4" data-target-annotation="1">1</dt>
+<dd>
+<span data-code-cell="annotated-cell-4" data-code-lines="2" data-code-annotation="1">Pretty normal implementation.</span>
+</dd>
+<dt data-target-cell="annotated-cell-4" data-target-annotation="2">2</dt>
+<dd>
+<span data-code-cell="annotated-cell-4" data-code-lines="3" data-code-annotation="2">Using a lambda expression. The ’' is the lambda sign, which declares that <code>x</code> is a named function argument, allowing it to be used to the right side of the <code>-&gt;</code>.</span>
+</dd>
+<dt data-target-cell="annotated-cell-4" data-target-annotation="3">3</dt>
+<dd>
+<span data-code-cell="annotated-cell-4" data-code-lines="4" data-code-annotation="3">Partial application of the <code>(-)</code> function. Had it instead been <code>(2 -)</code> the the partial application of minus would have bound up the left side argument. Still valid, but that’s the function <code>subtractFromTwo</code>.</span>
+</dd>
+</dl>
+<p>Go wild with <code>:t</code> to understand how this works.</p>
+<p>If you find an operator you want to implement you can take some inspiration from the Parsec code example above. Say that you want to make your own version of <code>(.)</code><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> then just slam some GT/LT signs around that, to do your own <code>my</code>-operator:</p>
+<div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;Called “ball” or “ring” or “function composition”. It’s how function applications are chained together with nicer syntax than a bazillion parenthenses. Usually you write <code>p . q . f . g . h $ x</code>, where <code>($)</code> is another operator that is special in how “hard” it binds/is applied. See below.</p></div></div><div class="sourceCode" id="cb4"><pre class="sourceCode haskell code-with-copy"><code class="sourceCode haskell"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ot">(&lt;.&gt;) ::</span> (b <span class="ot">-&gt;</span> c) <span class="ot">-&gt;</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> c</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>f <span class="op">&lt;.&gt;</span> g <span class="ot">=</span> \x <span class="ot">-&gt;</span> <span class="fu">undefined</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="stupid-but-valid-haskell" class="level3">
+<h3 class="anchored" data-anchor-id="stupid-but-valid-haskell">Stupid but Valid Haskell</h3>
+<div class="sourceCode" id="cb5"><pre class="sourceCode haskell code-with-copy"><code class="sourceCode haskell"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ghci<span class="op">&gt;</span> <span class="kw">let</span> x <span class="op">&lt;</span>╯°□°<span class="op">&gt;</span>╯ y <span class="ot">=</span> x <span class="op">+</span> y</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="rightarrow-start-here-leftarrow" class="level1">
-<h1><a href="./01_elem.html"><span class="math inline">\(\rightarrow\)</span> Start Here! <span class="math inline">\(\leftarrow\)</span></a></h1>
+</section>
+<section id="next-level-t" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="next-level-t">Next Level <code>:t</code></h2>
+<p>There’s another command you can do in <code>ghci</code> which is <code>:i</code> for info. The footnote above mentions that <code>($)</code> is special in how hard it binds. How’s that quantified? If you did <code>:t ($)</code> you probably got nothing. Here’s how you do it instead:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode haskell code-with-copy"><code class="sourceCode haskell"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>ghci<span class="op">&gt;</span> <span class="op">:</span>i (<span class="op">$</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ot">($) ::</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> b   <span class="co">-- Defined in ‘GHC.Base’</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="kw">infixr</span> <span class="dv">0</span> <span class="op">$</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>ghci<span class="op">&gt;</span> <span class="op">:</span>i (<span class="op">.</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="ot">(.) ::</span> (b <span class="ot">-&gt;</span> c) <span class="ot">-&gt;</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> c   <span class="co">-- Defined in ‘GHC.Base’</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="kw">infixr</span> <span class="dv">9</span> <span class="op">.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The <code>:i</code> command is also a tool for exploring concepts “higher” than functions, such as datatypes and type classes. If you did <code>:i (+)</code> you noticed it said something about <code>class Num</code>. Try looking that:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode haskell code-with-copy"><code class="sourceCode haskell"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>ghci<span class="op">&gt;</span> <span class="op">:</span>i <span class="dt">Num</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>If you do <code>:i Foldable</code> it might make more sense than it would have when you started out.</p>
+</div></div><p>It declares “To be called a <code>Num</code> all these functions must be implemented.” as well as a list of what types which implements the <code>Num</code> class.</p>
+<p>You can even look at the declaration datatypes, such as the list and <code>Maybe</code>!</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode haskell code-with-copy"><code class="sourceCode haskell"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>ghci<span class="op">&gt;</span> <span class="op">:</span>i []</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>ghci<span class="op">&gt;</span> <span class="op">:</span>i <span class="dt">Maybe</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="bonus-exercises" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="bonus-exercises">Bonus Exercises</h2>
+<section id="more-lists" class="level3">
+<h3 class="anchored" data-anchor-id="more-lists">More Lists</h3>
+<p>Do your own implementations of</p>
+<ul>
+<li><code>(++)</code> (call it <code>(&lt;++&gt;)</code> or something)</li>
+<li><code>(!!)</code></li>
+<li><code>concat</code> (calling your own <code>(++)</code>)</li>
+<li><code>repeat</code></li>
+<li><code>replicate</code></li>
+<li><code>intersperse</code></li>
+<li><code>cycle</code></li>
+<li><code>mapAccumL</code></li>
+<li><code>mapAccumR</code></li>
+</ul>
+<p>Also write a function which replaces the element at a certain index. It’s usually looks like this:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode haskell code-with-copy"><code class="sourceCode haskell"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ot">(!!=) ::</span> [a] <span class="ot">-&gt;</span> (<span class="dt">Int</span>,a) <span class="ot">-&gt;</span> [a]</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>xs <span class="op">!!=</span> (ix, new) <span class="ot">=</span> <span class="fu">undefined</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Because Haskell lists are singly linked the access time for this is not very nice, so be careful.</p>
+<p>And a final, quite difficult exercise:</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">factorialPairs</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">source</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p>Take a close look at the <code>mapAccum</code> functions. The <code>s</code> in the type signature is for “State”. One great use would be to take list <code>[1..]</code> and use <code>mapAccumL</code> (will only work with the <code>L</code> version) to very quickly produce a list of pairs containing <code>n</code> and <code>n!</code>. Pass the product/factorial calculation</p>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="sourceCode" id="cb10"><pre class="sourceCode haskell code-with-copy"><code class="sourceCode haskell"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ot">factorialPairs ::</span> [(<span class="dt">Integer</span>, <span class="dt">Integer</span>)]</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>factorialPairs <span class="ot">=</span> <span class="fu">snd</span> <span class="op">$</span> mapAccumL (\fn n <span class="ot">-&gt;</span> <span class="kw">let</span> fn' <span class="ot">=</span> n<span class="op">*</span>fn <span class="kw">in</span> (fn', (n,fn'))) <span class="dv">1</span> [<span class="dv">1</span><span class="op">..</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="difficult-search-tree-library-glue-ing" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="difficult-search-tree-library-glue-ing">Difficult Search Tree Library Glue-ing</h3>
+<p>Import <code>Data.Map</code><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> into your program and create a one-liner (or as close as you can make it) to a tree building function:</p>
+<div class="no-row-height column-margin column-container"><div id="fn2"><p><sup>2</sup>&nbsp;The standard binary tree implementation. Import it with <code>import qualified Data.Map as M</code> in order to avoid naming conflicts.</p></div></div><div class="sourceCode" id="cb11"><pre class="sourceCode haskell code-with-copy"><code class="sourceCode haskell"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="ot">buildTree ::</span> (<span class="dt">Ord</span> k) <span class="ot">=&gt;</span> [(k,v)] <span class="ot">-&gt;</span> <span class="dt">Map</span> k v</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>It should be done by using a <code>fold</code> (list function) with <code>M.insert</code> as its function argument. Look at <code>M.empty</code> as your <em>zero</em> argument. Search for <code>Data.Map</code> on Hoogle for more information.</p>
+</section>
+</section>
+<section id="thats-all" class="level2">
+<h2 class="anchored" data-anchor-id="thats-all">That’s All!</h2>
+<p>Good luck with your course work!</p>
 
 
 </section>

@@ -1,0 +1,196 @@
+---
+title: 3. Finishing Up
+---
+
+Good job working your way through the list!
+
+Here are some final links, tips and bonus exercises.
+
+## Hoogle
+
+As a next step you should look at Hoogle:
+
+#### <https://hoogle.haskell.org>
+
+It's a great tool for you to search for already existing functions.
+Try searching for the type of one of the most fundamental Haskell functions:
+
+```{.haskell}
+(b -> c) -> (a -> b) -> a -> c
+```
+
+Or you could search for something simpler:
+```{.haskell}
+[a] -> [a] -> [a]
+```
+
+Learning to think about how you want to transform your data *on the type level* really is key to mastering Haskell.
+
+
+
+
+
+
+
+
+
+## "Operators" and Lambdas
+
+In Haskell operators are functions.
+This means that `+` and `-` are functions just like you would declare your own `add`.
+
+This means that you can declare your own operators, which the text parsing library has taken quite a few liberties when doing, as can be seen in this example from the book [Real World Haskell, available for free online](https://book.realworldhaskell.org/read/using-parsec.html):
+
+```{.haskell}
+-- file: ch16/HttpRequestParser.hs
+p_headers :: CharParser st [(String, String)]
+p_headers = header `manyTill` crlf
+  where header = liftA2 (,) fieldName (char ':' *> spaces *> contents)
+        contents = liftA2 (++) (many1 notEOL <* crlf)
+                               (continuation <|> pure [])
+        continuation = liftA2 (:) (' ' <$ many1 (oneOf " \t")) contents
+        fieldName = (:) <$> letter <*> many fieldChar
+        fieldChar = letter <|> digit <|> oneOf "-_"
+```
+:::{.column-margin}
+**PRO TIP:** Don't try to understand this piece of code, instead marvel at the seemingly endless onslaught of combining operators.
+:::
+
+
+Let's toy around with it a bit, to see how it works.
+This is three definitions of the same thing.
+```{.haskell}
+subtractTwo :: Int -> Int
+subtractTwo x = x - 2         -- <1>
+subtractTwo = \x -> x - 2     -- <2>
+subtractTwo = (- 2)           -- <3>
+```
+1. Pretty normal implementation.
+2. Using a lambda expression. The '\' is the lambda sign, which declares that `x` is a named function argument, allowing it to be used to the right side of the `->`.
+3. Partial application of the `(-)` function. Had it instead been `(2 -)` the the partial application of minus would have bound up the left side argument. Still valid, but that's the function `subtractFromTwo`.
+
+Go wild with `:t` to understand how this works.
+
+If you find an operator you want to implement you can take some inspiration from the Parsec code example above.
+Say that you want to make your own version of `(.)`^[Called "ball" or "ring" or "function composition". It's how function applications are chained together with nicer syntax than a bazillion parenthenses. Usually you write `p . q . f . g . h $ x`, where `($)` is another operator that is special in how "hard" it binds/is applied. See below.] then just slam some GT/LT signs around that, to do your own `my`-operator:
+
+```{.haskell}
+(<.>) :: (b -> c) -> (a -> b) -> a -> c
+f <.> g = \x -> undefined
+```
+
+### Stupid but Valid Haskell
+
+```{.haskell}
+ghci> let x <╯°□°>╯ y = x + y
+```
+
+
+
+
+
+
+
+## Next Level `:t`
+
+There's another command you can do in `ghci` which is `:i` for info.
+The footnote above mentions that `($)` is special in how hard it binds.
+How's that quantified?
+If you did `:t ($)` you probably got nothing.
+Here's how you do it instead:
+
+```{.haskell}
+ghci> :i ($)
+($) :: (a -> b) -> a -> b 	-- Defined in ‘GHC.Base’
+infixr 0 $
+ghci> :i (.)
+(.) :: (b -> c) -> (a -> b) -> a -> c 	-- Defined in ‘GHC.Base’
+infixr 9 .
+```
+
+The `:i` command is also a tool for exploring concepts "higher" than functions, such as datatypes and type classes.
+If you did `:i (+)` you noticed it said something about `class Num`.
+Try looking that:
+
+```{.haskell}
+ghci> :i Num
+```
+:::{.column-margin}
+If you do `:i Foldable` it might make more sense than it would have when you started out.
+:::
+
+It declares "To be called a `Num` all these functions must be implemented." as well as a list of what types which implements the `Num` class.
+
+You can even look at the declaration datatypes, such as the list and `Maybe`!
+
+```{.haskell}
+ghci> :i []
+ghci> :i Maybe
+```
+
+
+
+## Bonus Exercises
+
+
+
+### More Lists
+
+Do your own implementations of
+
+  * `(++)` (call it `(<++>)` or something)
+  * `(!!)`
+  * `concat` (calling your own `(++)`)
+  * `repeat`
+  * `replicate`
+  * `intersperse`
+  * `cycle`
+  * `mapAccumL`
+  * `mapAccumR`
+
+Also write a function which replaces the element at a certain index.
+It's usually looks like this:
+```{.haskell}
+(!!=) :: [a] -> (Int,a) -> [a]
+xs !!= (ix, new) = undefined
+```
+
+Because Haskell lists are singly linked the access time for this is not very nice, so be careful.
+
+And a final, quite difficult exercise:
+
+:::{.panel-tabset}
+## factorialPairs
+Take a close look at the `mapAccum` functions.
+The `s` in the type signature is for "State".
+One great use would be to take list `[1..]` and use `mapAccumL` (will only work with the `L` version) to very quickly produce a list of pairs containing `n` and `n!`.
+Pass the product/factorial calculation 
+
+## source
+```{.haskell}
+factorialPairs :: [(Integer, Integer)]
+factorialPairs = snd $ mapAccumL (\fn n -> let fn' = n*fn in (fn', (n,fn'))) 1 [1..]
+```
+:::
+
+
+
+
+### Difficult Search Tree Library Glue-ing
+
+Import `Data.Map`^[The standard binary tree implementation. Import it with `import qualified Data.Map as M` in order to avoid naming conflicts.] into your program and create a one-liner (or as close as you can make it) to a tree building function:
+
+```{.haskell}
+buildTree :: (Ord k) => [(k,v)] -> Map k v
+```
+
+It should be done by using a `fold` (list function) with `M.insert` as its function argument.
+Look at `M.empty` as your *zero* argument.
+Search for `Data.Map` on Hoogle for more information.
+
+
+
+
+## That's All!
+
+Good luck with your course work!

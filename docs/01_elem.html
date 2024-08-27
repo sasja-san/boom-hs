@@ -164,6 +164,10 @@ window.Quarto = {
     <a class="nav-link" href="./02_my_funs.html"> 
 <span class="menu-text">2. The List of Functions</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./03_extra.html"> 
+<span class="menu-text">3. Finishing Up</span></a>
+  </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -182,7 +186,6 @@ window.Quarto = {
    
   <ul>
   <li><a href="#tutorial-structure-your-first-function" id="toc-tutorial-structure-your-first-function" class="nav-link active" data-scroll-target="#tutorial-structure-your-first-function">Tutorial Structure / Your First Function</a></li>
-  <li><a href="#writing-conventions" id="toc-writing-conventions" class="nav-link" data-scroll-target="#writing-conventions">Writing Conventions</a></li>
   <li><a href="#your-new-best-friend" id="toc-your-new-best-friend" class="nav-link" data-scroll-target="#your-new-best-friend">Your New Best Friend</a></li>
   <li><a href="#fking-around-with-t---finding-out" id="toc-fking-around-with-t---finding-out" class="nav-link" data-scroll-target="#fking-around-with-t---finding-out">F**king Around With <code>:t</code> - Finding Out</a></li>
   <li><a href="#to-the-exercise-rightarrow" id="toc-to-the-exercise-rightarrow" class="nav-link" data-scroll-target="#to-the-exercise-rightarrow">To the Exercise <span class="math inline">\(\rightarrow\)</span></a></li>
@@ -224,7 +227,7 @@ window.Quarto = {
 </dd>
 <dt data-target-cell="annotated-cell-1" data-target-annotation="2">2</dt>
 <dd>
-<span data-code-cell="annotated-cell-1" data-code-lines="2" data-code-annotation="2">The function <em>definition</em>. What the compiler uses to make assembly.</span>
+<span data-code-cell="annotated-cell-1" data-code-lines="2" data-code-annotation="2">The function <em>definition</em> starts here. What the compiler uses to make assembly. First <code>int</code> is the return type, then comes the function name then the arguments. The <code>n</code> here is equivalent to what’s to the left of the <code>=</code> in the Haskell function.</span>
 </dd>
 <dt data-target-cell="annotated-cell-1" data-target-annotation="3">3</dt>
 <dd>
@@ -236,7 +239,7 @@ window.Quarto = {
 <dl class="code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-2" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-2" data-code-lines="1" data-code-annotation="1">This is the “type signature” of the function. It says that it takes an <code>Int</code> (the first mention) and returns (the second mention) an <code>Int</code>.</span>
+<span data-code-cell="annotated-cell-2" data-code-lines="1" data-code-annotation="1">This is the <em>type signature</em> of the function. It says that it takes an <code>Int</code> (the first mention) and returns (the second mention) an <code>Int</code>.</span>
 </dd>
 <dt data-target-cell="annotated-cell-2" data-target-annotation="2">2</dt>
 <dd>
@@ -253,17 +256,31 @@ window.Quarto = {
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>ghci<span class="op">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>So what’s the type of elem? Run <code>ghci&gt; :t elem</code> and you should get this:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode haskell code-with-copy"><code class="sourceCode haskell"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">elem</span><span class="ot"> ::</span> (<span class="dt">Foldable</span> t, <span class="dt">Eq</span> a) <span class="ot">=&gt;</span> a <span class="ot">-&gt;</span> t a <span class="ot">-&gt;</span> <span class="dt">Bool</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Small letters, especially the <code>a</code> correspond to the generic type, like <code>&lt;T&gt;</code> in languages like Java or C++. In this particular case the generic type t (with a restriction <code>Foldable t</code>) represents a structure. So the <code>t</code> could be replaced with <code>List</code> or <code>Set</code> or <code>Seq</code> or many other types.</p>
+<p>Small letters, especially the <code>a</code> correspond to the generic type, like <code>&lt;T&gt;</code> in languages like Java or C++. In this particular case the generic type <code>t</code> (with a restriction <code>Foldable t</code>) represents a structure. So the <code>t</code> could be replaced with <code>List</code> or <code>Set</code> or <code>BinarySearchTree</code> or many other types.</p>
 <p>Let’s simplify this by forcing the <code>Foldable</code> into a list. This gives us:</p>
 
 <div class="no-row-height column-margin column-container"><div class="">
 <p>The Haskell function <code>elem</code> is similar to <span class="math inline">\(\in\)</span> from mathematics. In maths you would write something like <span class="math inline">\(\in : (a, \{a\}) \rightarrow \{T,F\}\)</span> instead.</p>
 </div></div><div class="sourceCode" id="cb3"><pre class="sourceCode haskell code-with-copy"><code class="sourceCode haskell"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">elem</span><span class="ot"> ::</span> (<span class="dt">Eq</span> a) <span class="ot">=&gt;</span> a <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> <span class="dt">Bool</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Now that’s A LOT better. It says that the element <code>a</code> has to have the <code>Eq</code> trait/interface.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> This means that the functions <code>==</code> and <code>!=</code> has to be defined for <code>a</code>. If it does, then we can search for something of type <code>a</code> in a <code>[a]</code> (“list of a:s”) and we will get back a <code>Bool</code>.</p>
-<div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;It’s written <code>class</code> in Haskell but spoken about as “typeclass”.</p></div></div><section id="tutorial-structure-your-first-function" class="level2">
+<p>Now that’s A LOT better. It says that the element <code>a</code> has to have the <code>Eq</code> trait/interface.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> This means that the functions <code>==</code> and <code>/=</code> has to be defined for <code>a</code>. If it does, then we can search for something of type <code>a</code> in a <code>[a]</code> (“list of a:s”) and we will get back a <code>Bool</code>.</p>
+<div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;It’s written <code>class</code> in Haskell but spoken about as “typeclass”.</p></div></div><section id="tutorial-structure-your-first-function" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="tutorial-structure-your-first-function">Tutorial Structure / Your First Function</h2>
 <p>This tutorial will asks you to write your own version of existing library functions. In this first instance you will write <code>myElem :: (Eq a) =&gt; a -&gt; [a] -&gt; Bool</code>. So it has the same type as the library one, just <code>my</code> in front of it, to avoid naming conflicts.</p>
-<p>Create a file <code>Exercise.hs</code> which looks like this:</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<!-- quarto newlines fixes rendering -->
+<section id="basic-ghci-usage." class="level3">
+<h3 class="anchored" data-anchor-id="basic-ghci-usage.">Basic <code>ghci</code> usage.</h3>
+<div class="line-block"><code>$ ghci File.hs</code> to initially load a file.<br>
+<br>
+<code>ghci&gt; :l File.hs</code> to load the file from within <code>ghci</code>.<br>
+<br>
+<strong>DON’T MISS!!!</strong><br>
+<code>ghci&gt; :r</code> to reload the file last loaded.<br>
+<br>
+<code>ghci&gt; myElem 'b' "abc"</code> An expression calling <code>myElem</code> to evaluate in <code>ghci</code>.</div>
+</section>
+</div></div><p>Create a file <code>Exercise.hs</code> which looks like this:</p>
 <div class="sourceCode" id="annotated-cell-6"><pre class="sourceCode haskell code-annotation-code code-with-copy code-annotated"><code class="sourceCode haskell"><a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-6-1" class="code-annotation-target"><a href="#annotated-cell-6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Data.List</span></span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-6" data-target-annotation="2" onclick="event.preventDefault();">2</a><span id="annotated-cell-6-2" class="code-annotation-target"><a href="#annotated-cell-6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="dt">Data.Char</span></span>
 <span id="annotated-cell-6-3"><a href="#annotated-cell-6-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -294,12 +311,18 @@ window.Quarto = {
 </dl>
 <p>Now complete the function at the last line. Haskell is quite squeamish about indentation, so you might get a few compilation errors before you get it right.</p>
 <p>Here’s an example of correct indentation for <code>if</code>, which also uses the <code>let-in</code> notation for local variable creation:</p>
-</section>
 
-<div class="no-row-height column-margin column-container"><section id="writing-conventions" class="level2">
-<h2 class="anchored" data-anchor-id="writing-conventions">Writing Conventions</h2>
+<div class="no-row-height column-margin column-container"><div class="">
+<!-- quarto newlines fixes rendering -->
+<div class="line-block"><br>
+<br>
+<br>
+</div>
+<section id="writing-conventions" class="level3">
+<h3 class="anchored" data-anchor-id="writing-conventions">Writing Conventions</h3>
 <p>When making “alternate” version of existing values you usually stick a <code>'</code> at the end. So in this case the string <code>s1</code> becomes <code>s1'</code>, pronounced as [s one prime] (swedish: [prim]). The contents of <code>s1'</code> and <code>s2'</code> is the same as <code>s1</code> and <code>s2</code> except that any characters not in lower case has been turned into lower case.</p>
-</section></div><div class="sourceCode" id="annotated-cell-7"><pre class="sourceCode haskell code-annotation-code code-with-copy code-annotated"><code class="sourceCode haskell"><span id="annotated-cell-7-1"><a href="#annotated-cell-7-1" aria-hidden="true" tabindex="-1"></a><span class="ot">isCoolBeans ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">String</span></span>
+</section>
+</div></div><div class="sourceCode" id="annotated-cell-7"><pre class="sourceCode haskell code-annotation-code code-with-copy code-annotated"><code class="sourceCode haskell"><span id="annotated-cell-7-1"><a href="#annotated-cell-7-1" aria-hidden="true" tabindex="-1"></a><span class="ot">isCoolBeans ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">String</span></span>
 <span id="annotated-cell-7-2"><a href="#annotated-cell-7-2" aria-hidden="true" tabindex="-1"></a>isCoolBeans s1 s2 <span class="ot">=</span></span>
 <a class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="1" onclick="event.preventDefault();">1</a><span id="annotated-cell-7-3" class="code-annotation-target"><a href="#annotated-cell-7-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> s1' <span class="ot">=</span> <span class="fu">map</span> <span class="fu">toLower</span> s1</span>
 <span id="annotated-cell-7-4"><a href="#annotated-cell-7-4" aria-hidden="true" tabindex="-1"></a>      s2' <span class="ot">=</span> <span class="fu">map</span> <span class="fu">toLower</span> s2</span>
@@ -361,6 +384,7 @@ The notation <code>_</code> for an argument means “We are not going to look at
 <div class="sourceCode" id="cb9"><pre class="sourceCode haskell code-with-copy"><code class="sourceCode haskell"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ot">myElem ::</span> (<span class="dt">Eq</span> a) <span class="ot">=&gt;</span> a <span class="ot">-&gt;</span> [a] <span class="ot">-&gt;</span> <span class="dt">Bool</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>myElem _    []  <span class="ot">=</span> <span class="dt">False</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>myElem e (x<span class="op">:</span>xs) <span class="ot">=</span> (e <span class="op">==</span> x) <span class="op">||</span> myElem e xs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
 <section id="your-new-best-friend" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="your-new-best-friend">Your New Best Friend</h2>
 <p>If you’ve ever used Python you just put in your expression in the prompt and get the resulting value and side effects (such as file I/O &amp; whatnot).</p>
@@ -368,20 +392,25 @@ The notation <code>_</code> for an argument means “We are not going to look at
 <p>To look a bit at what’s going on here, in <code>ghci</code> try using the <code>:t</code> command. It asks for the type of an expression. First ask about map:</p>
 <pre><code>  ghci&gt; :t map</code></pre>
 <p>The part <code>(a -&gt; b)</code> means that the first argument is a function, taking something of type <code>a</code> and returning something of type <code>b</code>.</p>
-<p>Now let’s play with it a bit:</p>
-
-<div class="no-row-height column-margin column-container"><div class="">
-<p><img src="img/friendship-ended-with-expr.jpeg" class="img-fluid"></p>
-</div></div><div class="sourceCode" id="cb11"><pre class="sourceCode haskell code-with-copy"><code class="sourceCode haskell"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>  ghci<span class="op">&gt;</span> <span class="op">:</span>t <span class="fu">toLower</span></span>
+<p>Now let’s play with it a bit, try these in <code>ghci</code>:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode haskell code-with-copy"><code class="sourceCode haskell"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>  ghci<span class="op">&gt;</span> <span class="op">:</span>t <span class="fu">toLower</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  ghci<span class="op">&gt;</span> <span class="op">:</span>t <span class="fu">toLower</span> <span class="ch">'A'</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  ghci<span class="op">&gt;</span> <span class="fu">toLower</span> <span class="ch">'A'</span></span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  ghci<span class="op">&gt;</span> <span class="op">:</span>t <span class="fu">map</span> <span class="fu">toLower</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Because <code>toLower</code> has the type you saw (when running the above commands in <code>ghci</code>), those types gets bound up in <code>map</code>.</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<div class="line-block"><br>
+<br>
+<br>
+<br>
+</div>
 <p>Using <code>:t</code> will be one of your primary tools for learning Haskell.</p>
+</div></div><p><img src="img/friendship-ended-with-expr.jpeg" class="img-fluid"></p>
 </section>
-<section id="fking-around-with-t---finding-out" class="level2">
+<section id="fking-around-with-t---finding-out" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="fking-around-with-t---finding-out">F**king Around With <code>:t</code> - Finding Out</h2>
-<p>First let’s look at the function <code>length</code> and then write our own, just to get away from the <code>Foldable</code> nonsense.</p>
+<div class="page-columns page-full"><p>First let’s look at the function <code>length</code> and then write our own, just to get away from the <code>Foldable</code> nonsense.</p><div class="no-row-height column-margin column-container"><span class="margin-aside">You could use <code>ghci&gt; :t +d length</code> and that will work to <strong>d</strong>efault the <code>Foldable</code> to a list. It will <em>often</em> work, but it’s in no way a sure thing.</span></div></div>
 <div class="sourceCode" id="cb12"><pre class="sourceCode haskell code-with-copy"><code class="sourceCode haskell"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>ghci<span class="op">&gt;</span> <span class="op">:</span>t <span class="fu">length</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">length</span><span class="ot"> ::</span> (<span class="dt">Foldable</span> t) <span class="ot">=&gt;</span> t a <span class="ot">-&gt;</span> <span class="dt">Int</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Now make your own:</p>
@@ -414,11 +443,11 @@ The notation <code>_</code> for an argument means “We are not going to look at
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <div class="sourceCode" id="cb15"><pre class="sourceCode haskell code-with-copy"><code class="sourceCode haskell"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>ghci<span class="op">&gt;</span> <span class="op">:</span>t myStringLength</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="ot">myLength ::</span> <span class="dt">String</span> <span class="ot">-&gt;</span> <span class="dt">Int</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>ghci<span class="op">&gt;</span> myLength <span class="st">""</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>ghci<span class="op">&gt;</span> myStringLength <span class="st">""</span></span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>ghci<span class="op">&gt;</span> myLength <span class="st">"1234"</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>ghci<span class="op">&gt;</span> myStringLength <span class="st">"1234"</span></span>
 <span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>ghci<span class="op">&gt;</span> myLength [<span class="dv">1</span><span class="op">..</span><span class="dv">5</span>]</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>ghci<span class="op">&gt;</span> myStringLength [<span class="dv">1</span><span class="op">..</span><span class="dv">5</span>]</span>
 <span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="op">&lt;</span>interactive<span class="op">&gt;:</span><span class="dv">76</span><span class="op">:</span><span class="dv">17</span><span class="op">:</span> <span class="fu">error</span><span class="op">:</span></span>
 <span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    • <span class="dt">No</span> <span class="kw">instance</span> for (<span class="dt">Num</span> <span class="dt">Char</span>) arising from the literal ‘<span class="dv">1</span>’</span>
