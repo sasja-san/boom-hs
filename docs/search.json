@@ -88,14 +88,14 @@
     "href": "index.html",
     "title": "Boom-HS Starting Page",
     "section": "",
-    "text": "This tutorial started as a list of function names on a piece of paper. The people who worked through the list on the paper greatly appreciated it as an introduction.\nThis is intended as a short and simple way for someone who has a bit of programming experience1 to start at the right end of learning Haskell.2\n1 Mostly made for people doing the AI course at Jönköpings Tekniska Högskola (JTH).2 There’s way too many “What is a Monad?” tutorials out there. Don’t even fuck around with those for your first month. It will be a huge waste of your time.To reach basic proficiency you will need to master three things.\n\nThe basic syntax of lists and datatypes.\nUnderstanding and writing function type signatures.\nSome/most of the functions in Prelude and Data.List.\n\nThis tutorial aims to guide you through these with minimal effort."
+    "text": "This tutorial started as a list of function names on a piece of paper. The people who worked through the list on the paper greatly appreciated it. But I won’t be there to pull that list out of my $#&*@ every year, so I made a web page instead.\nThis is intended as a short and simple way for someone who has a bit of programming experience1 to start at the right end of learning Haskell.2\n1 Mostly made for people doing the AI course at Jönköpings Tekniska Högskola (JTH).2 There’s way too many “What is a Monad?” tutorials out there. Don’t even fuck around with those for your first month. It will be a huge waste of your time.To reach basic proficiency you will need to master three things.\n\nThe basic syntax of lists and datatypes.\nUnderstanding and writing function type signatures.\nSome/most of the functions in Prelude and Data.List.\n\nThis tutorial aims to guide you through these with minimal effort."
   },
   {
     "objectID": "index.html#about-this-tutorial",
     "href": "index.html#about-this-tutorial",
     "title": "Boom-HS Starting Page",
     "section": "",
-    "text": "This tutorial started as a list of function names on a piece of paper. The people who worked through the list on the paper greatly appreciated it as an introduction.\nThis is intended as a short and simple way for someone who has a bit of programming experience1 to start at the right end of learning Haskell.2\n1 Mostly made for people doing the AI course at Jönköpings Tekniska Högskola (JTH).2 There’s way too many “What is a Monad?” tutorials out there. Don’t even fuck around with those for your first month. It will be a huge waste of your time.To reach basic proficiency you will need to master three things.\n\nThe basic syntax of lists and datatypes.\nUnderstanding and writing function type signatures.\nSome/most of the functions in Prelude and Data.List.\n\nThis tutorial aims to guide you through these with minimal effort."
+    "text": "This tutorial started as a list of function names on a piece of paper. The people who worked through the list on the paper greatly appreciated it. But I won’t be there to pull that list out of my $#&*@ every year, so I made a web page instead.\nThis is intended as a short and simple way for someone who has a bit of programming experience1 to start at the right end of learning Haskell.2\n1 Mostly made for people doing the AI course at Jönköpings Tekniska Högskola (JTH).2 There’s way too many “What is a Monad?” tutorials out there. Don’t even fuck around with those for your first month. It will be a huge waste of your time.To reach basic proficiency you will need to master three things.\n\nThe basic syntax of lists and datatypes.\nUnderstanding and writing function type signatures.\nSome/most of the functions in Prelude and Data.List.\n\nThis tutorial aims to guide you through these with minimal effort."
   },
   {
     "objectID": "index.html#install-ghc",
@@ -151,6 +151,6 @@
     "href": "03_extra.html#thats-all",
     "title": "3. Finishing Up",
     "section": "That’s All!",
-    "text": "That’s All!\nGood luck with your course work!\n\n\n\n\nQuestions and/or Comments?\nShare any thoughts you have about these pages HERE."
+    "text": "That’s All!\nGood luck with your course work!\n\n\n\n\nDone?\nWas it good? Bad?\nPlease tell me/other users what you thought HERE.\nUser comments is the only way for me to know if this guide is being used or not."
   }
 ]
