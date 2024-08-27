@@ -441,12 +441,15 @@ This one is a little tricky, so be sure to read the source carefully.</div>
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-10-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-1" role="tab" aria-controls="tabset-10-1" aria-selected="true">reverse</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-10-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-2" role="tab" aria-controls="tabset-10-2" aria-selected="false">source</a></li></ul>
 <div class="tab-content">
 <div id="tabset-10-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-10-1-tab">
-<div class="sourceCode" id="cb22"><pre class="sourceCode haskell code-with-copy"><code class="sourceCode haskell"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>ghci<span class="op">&gt;</span> <span class="fu">reverse</span> <span class="st">"Jesus Christ Superstar"</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="st">"ratsrepuS tsirhC suseJ"</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>ghci<span class="op">&gt;</span> <span class="fu">map</span> <span class="fu">reverse</span> (<span class="fu">words</span> <span class="st">"Jesus Christ Superstar"</span>)</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>[<span class="st">"suseJ"</span>,<span class="st">"tsirhC"</span>,<span class="st">"ratsrepuS"</span>]</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>ghci<span class="op">&gt;</span> <span class="fu">reverse</span> (<span class="fu">unwords</span> (<span class="fu">map</span> <span class="fu">reverse</span> (<span class="fu">words</span> <span class="st">"Jesus Christ Superstar"</span>)))</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="st">"Superstar Christ Jesus"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode haskell code-with-copy"><code class="sourceCode haskell"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>ghci<span class="op">&gt;</span> <span class="kw">let</span> jcs <span class="ot">=</span> <span class="st">"Jesus Christ Superstar"</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>ghci<span class="op">&gt;</span> jcs</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="st">"Jesus Christ Superstar"</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>ghci<span class="op">&gt;</span> <span class="fu">reverse</span> jcs</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="st">"ratsrepuS tsirhC suseJ"</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>ghci<span class="op">&gt;</span> <span class="fu">map</span> <span class="fu">reverse</span> (<span class="fu">words</span> jcs)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>[<span class="st">"suseJ"</span>,<span class="st">"tsirhC"</span>,<span class="st">"ratsrepuS"</span>]</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>ghci<span class="op">&gt;</span> <span class="fu">reverse</span> (<span class="fu">unwords</span> (<span class="fu">map</span> <span class="fu">reverse</span> (<span class="fu">words</span> jcs)))</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a><span class="st">"Superstar Christ Jesus"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="tabset-10-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-10-2-tab">
 <div class="sourceCode" id="cb23"><pre class="sourceCode haskell code-with-copy"><code class="sourceCode haskell"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">reverse</span><span class="ot"> ::</span> [a] <span class="ot">-&gt;</span> [a]</span>
@@ -459,7 +462,7 @@ This one is a little tricky, so be sure to read the source carefully.</div>
 </div>
 
 <div class="no-row-height column-margin column-container"><div class="">
-<p>The function <code>unwords</code> used here are for <code>String</code>/<code>[Char]</code> (same thing) only. For a non-<code>Char</code>-based concatenation of lists, look at <code>concat</code>. You should probably implement your own version of <code>concat</code> as well. Use the function <code>(++) :: [a] -&gt; [a] -&gt; [a]</code> in your implementation.</p>
+<p>The function <code>unwords</code> used here are for <code>String</code>/<code>[Char]</code> (same thing) only. For a non-<code>Char</code>-based concatenation of lists, look at <code>concat</code>. Later you will implement your own version of <code>concat</code> as well, using your own version of <code>(++)</code>.</p>
 </div></div></section>
 <section id="the-pairing-detour" class="level2">
 <h2 class="anchored" data-anchor-id="the-pairing-detour">The Pairing Detour</h2>
@@ -600,7 +603,9 @@ To grasp this, try using it with <code>:t</code> in many different ways.</div>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="dv">5050</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="tabset-17-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-17-2-tab">
-<div class="sourceCode" id="cb40"><pre class="sourceCode haskell code-with-copy"><code class="sourceCode haskell"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co">{- see foldr -}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode haskell code-with-copy"><code class="sourceCode haskell"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span><span class="ot">        ::</span> (<span class="dt">Num</span> a) <span class="ot">=&gt;</span> [a] <span class="ot">-&gt;</span> a</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>    []  <span class="ot">=</span> <span class="dv">0</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span> (x<span class="op">:</span>xs) <span class="ot">=</span> x <span class="op">+</span> mySum xs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
@@ -612,7 +617,9 @@ To grasp this, try using it with <code>:t</code> in many different ways.</div>
 <span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="dv">21</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="tabset-18-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-18-2-tab">
-<div class="sourceCode" id="cb42"><pre class="sourceCode haskell code-with-copy"><code class="sourceCode haskell"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co">{- see foldr -}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode haskell code-with-copy"><code class="sourceCode haskell"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">product</span><span class="ot">        ::</span> (<span class="dt">Num</span> a) <span class="ot">=&gt;</span> [a] <span class="ot">-&gt;</span> a</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">product</span>    []  <span class="ot">=</span> <span class="dv">1</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="fu">product</span> (x<span class="op">:</span>xs) <span class="ot">=</span> x <span class="op">*</span> myProduct xs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>

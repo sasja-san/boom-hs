@@ -308,11 +308,14 @@ drop n (_:xs)          =  drop (n-1) xs
 :::{.panel-tabset}
 ## reverse
 ```{.haskell}
-ghci> reverse "Jesus Christ Superstar"
+ghci> let jcs = "Jesus Christ Superstar"
+ghci> jcs
+"Jesus Christ Superstar"
+ghci> reverse jcs
 "ratsrepuS tsirhC suseJ"
-ghci> map reverse (words "Jesus Christ Superstar")
+ghci> map reverse (words jcs)
 ["suseJ","tsirhC","ratsrepuS"]
-ghci> reverse (unwords (map reverse (words "Jesus Christ Superstar")))
+ghci> reverse (unwords (map reverse (words jcs)))
 "Superstar Christ Jesus"
 ```
 ## source
@@ -327,8 +330,7 @@ reverse xs = rev xs []
 :::{.column-margin}
 The function `unwords` used here are for `String`/`[Char]` (same thing) only.
 For a non-`Char`-based concatenation of lists, look at `concat`.
-You should probably implement your own version of `concat` as well.
-Use the function `(++) :: [a] -> [a] -> [a]` in your implementation.
+Later you will implement your own version of `concat` as well, using your own version of `(++)`.
 :::
 
 
@@ -549,7 +551,9 @@ ghci> sum [1..100]
 ```
 ## source
 ```{.haskell}
-{- see foldr -}
+sum        :: (Num a) => [a] -> a
+sum    []  = 0
+sum (x:xs) = x + mySum xs
 ```
 :::
 
@@ -568,7 +572,9 @@ ghci> product [3,7]
 ```
 ## source
 ```{.haskell}
-{- see foldr -}
+product        :: (Num a) => [a] -> a
+product    []  = 1
+product (x:xs) = x * myProduct xs
 ```
 :::
 
