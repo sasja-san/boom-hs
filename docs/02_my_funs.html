@@ -445,8 +445,8 @@ This one is a little tricky, so be sure to read the source carefully.</div>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="st">"ratsrepuS tsirhC suseJ"</span></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>ghci<span class="op">&gt;</span> <span class="fu">map</span> <span class="fu">reverse</span> (<span class="fu">words</span> <span class="st">"Jesus Christ Superstar"</span>)</span>
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>[<span class="st">"suseJ"</span>,<span class="st">"tsirhC"</span>,<span class="st">"ratsrepuS"</span>]</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>ghci<span class="op">&gt;</span> <span class="fu">unwords</span> (<span class="fu">map</span> <span class="fu">reverse</span> (<span class="fu">words</span> <span class="st">"Jesus Christ Superstar"</span>))</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="st">"suseJ tsirhC ratsrepuS"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>ghci<span class="op">&gt;</span> <span class="fu">reverse</span> (<span class="fu">unwords</span> (<span class="fu">map</span> <span class="fu">reverse</span> (<span class="fu">words</span> <span class="st">"Jesus Christ Superstar"</span>)))</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="st">"Superstar Christ Jesus"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div id="tabset-10-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-10-2-tab">
 <div class="sourceCode" id="cb23"><pre class="sourceCode haskell code-with-copy"><code class="sourceCode haskell"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">reverse</span><span class="ot"> ::</span> [a] <span class="ot">-&gt;</span> [a]</span>

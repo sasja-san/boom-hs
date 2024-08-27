@@ -312,8 +312,8 @@ ghci> reverse "Jesus Christ Superstar"
 "ratsrepuS tsirhC suseJ"
 ghci> map reverse (words "Jesus Christ Superstar")
 ["suseJ","tsirhC","ratsrepuS"]
-ghci> unwords (map reverse (words "Jesus Christ Superstar"))
-"suseJ tsirhC ratsrepuS"
+ghci> reverse (unwords (map reverse (words "Jesus Christ Superstar")))
+"Superstar Christ Jesus"
 ```
 ## source
 ```{.haskell}
