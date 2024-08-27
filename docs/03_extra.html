@@ -289,12 +289,12 @@ window.Quarto = {
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>ghci<span class="op">&gt;</span> <span class="op">:</span>i (<span class="op">.</span>)</span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="ot">(.) ::</span> (b <span class="ot">-&gt;</span> c) <span class="ot">-&gt;</span> (a <span class="ot">-&gt;</span> b) <span class="ot">-&gt;</span> a <span class="ot">-&gt;</span> c   <span class="co">-- Defined in ‘GHC.Base’</span></span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="kw">infixr</span> <span class="dv">9</span> <span class="op">.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The <code>:i</code> command is also a tool for exploring concepts “higher” than functions, such as datatypes and type classes. If you did <code>:i (+)</code> you noticed it said something about <code>class Num</code>. Try looking that:</p>
+<p>The <code>:i</code> command is also a tool for exploring concepts “higher” than functions, such as datatypes and type classes. If you did <code>:i (+)</code> you noticed it said something about <code>class Num</code>. Try looking at that:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode haskell code-with-copy"><code class="sourceCode haskell"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>ghci<span class="op">&gt;</span> <span class="op">:</span>i <span class="dt">Num</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 <div class="no-row-height column-margin column-container"><div class="">
 <p>If you do <code>:i Foldable</code> it might make more sense than it would have when you started out.</p>
-</div></div><p>It declares “To be called a <code>Num</code> all these functions must be implemented.” as well as a list of what types which implements the <code>Num</code> class.</p>
+</div></div><p>It declares “To be called a <code>Num</code> all these functions must be implemented.” as well as a list of all currently loaded datatypes which implements the <code>Num</code> class.</p>
 <p>You can even look at the declaration datatypes, such as the list and <code>Maybe</code>!</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode haskell code-with-copy"><code class="sourceCode haskell"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>ghci<span class="op">&gt;</span> <span class="op">:</span>i []</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>ghci<span class="op">&gt;</span> <span class="op">:</span>i <span class="dt">Maybe</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -303,7 +303,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="bonus-exercises">Bonus Exercises</h2>
 <section id="more-lists" class="level3">
 <h3 class="anchored" data-anchor-id="more-lists">More Lists</h3>
-<p>Do your own implementations of</p>
+<p>Do your own implementations of these</p>
 <ul>
 <li><code>(++)</code> (call it <code>(&lt;++&gt;)</code> or something)</li>
 <li><code>(!!)</code></li>

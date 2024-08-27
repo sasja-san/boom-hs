@@ -650,8 +650,9 @@ foldl f z (x:xs) =  foldl f (f z x) xs
 
 You did it! You completed this Haskell tutorial.
 
-Good job! And good luck with the rest of your work!
 
+On the next page are some bonus exercises.
+You really should do most (skip `mapAccumL` if it seems too hard) of those pertaining to lists.
 
 
 # [Final Words and Bonus Exercises $\rightarrow$](03_extra.qmd)

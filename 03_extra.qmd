@@ -110,7 +110,7 @@ infixr 9 .
 
 The `:i` command is also a tool for exploring concepts "higher" than functions, such as datatypes and type classes.
 If you did `:i (+)` you noticed it said something about `class Num`.
-Try looking that:
+Try looking at that:
 
 ```{.haskell}
 ghci> :i Num
@@ -119,7 +119,7 @@ ghci> :i Num
 If you do `:i Foldable` it might make more sense than it would have when you started out.
 :::
 
-It declares "To be called a `Num` all these functions must be implemented." as well as a list of what types which implements the `Num` class.
+It declares "To be called a `Num` all these functions must be implemented." as well as a list of all currently loaded datatypes which implements the `Num` class.
 
 You can even look at the declaration datatypes, such as the list and `Maybe`!
 
@@ -130,13 +130,19 @@ ghci> :i Maybe
 
 
 
+
+
+
+
+
+
+
+
 ## Bonus Exercises
-
-
 
 ### More Lists
 
-Do your own implementations of
+Do your own implementations of these
 
   * `(++)` (call it `(<++>)` or something)
   * `(!!)`
