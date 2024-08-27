@@ -141,21 +141,6 @@ ghci> :i Maybe
 ## Bonus Exercises
 
 
-
-
-
-
-### More Lists
-
-
-Because Haskell lists are singly linked the access time for this is not very nice, so be careful if you actually use it.
-
-
-
-
-
-
-
 ### Difficult List Functions
 
 Write your own version of `mapAccumL`.
@@ -182,6 +167,8 @@ factorialPairs :: [(Integer, Integer)]
 factorialPairs = snd $ mapAccumL (\fn n -> let fn' = n*fn in (fn', (n,fn'))) 1 [1..]
 ```
 :::
+
+
 
 
 

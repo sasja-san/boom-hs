@@ -687,6 +687,7 @@ x * i_mul = x</code></pre>
 <p>Also write a function which replaces the element at a certain index. It’s usually looks like this:</p>
 <div class="sourceCode" id="cb48"><pre class="sourceCode haskell code-with-copy"><code class="sourceCode haskell"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="ot">(!!=) ::</span> [a] <span class="ot">-&gt;</span> (<span class="dt">Int</span>, a) <span class="ot">-&gt;</span> [a]</span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>xs <span class="op">!!=</span> (ix, new) <span class="ot">=</span> <span class="fu">undefined</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Because Haskell lists are singly linked the access time for this is not very nice, so be careful if you actually use this function.</p>
 <hr>
 </section>
 <section id="congratulations" class="level1">

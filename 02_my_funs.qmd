@@ -674,6 +674,11 @@ It's usually looks like this:
 xs !!= (ix, new) = undefined
 ```
 
+Because Haskell lists are singly linked the access time for this is not very nice, so be careful if you actually use this function.
+
+
+
+
 
 
 ---
