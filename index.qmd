@@ -76,3 +76,9 @@ Coincidentally, at the end of the linked video you can see the average student r
 
 # [$\rightarrow$ Start Here! $\leftarrow$](01_elem.qmd)
 
+
+:::{.column-margin}
+#### Questions and/or Comments?
+
+Share any thoughts you have about these pages [HERE](https://github.com/sasja-san/boom-hs/discussions).
+:::

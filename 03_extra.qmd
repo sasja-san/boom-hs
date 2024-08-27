@@ -191,3 +191,9 @@ Search for `Data.Map` on Hoogle^[Once you reach Hoogle the page for `Data.Map` c
 ## That's All!
 
 Good luck with your course work!
+
+:::{.column-margin}
+#### Questions and/or Comments?
+
+Share any thoughts you have about these pages [HERE](https://github.com/sasja-san/boom-hs/discussions).
+:::
