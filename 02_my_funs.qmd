@@ -636,7 +636,7 @@ ghci> :t foldl
 foldl :: (b -> a -> b) -> b -> [a] -> b
 ghci> let myNewProd = foldl (*) 1
 ghci> :t myNewProd
-myNewProd :: )Num a) => [a] -> a
+myNewProd :: (Num a) => [a] -> a
 ghci> myNewProd [3,7]
 21
 ```
