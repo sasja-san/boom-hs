@@ -66,7 +66,7 @@ subtractTwo = \x -> x - 2     -- <2>
 subtractTwo = (- 2)           -- <3>
 ```
 1. Pretty normal implementation.
-2. Using a lambda expression. The '\' is the lambda sign, which declares that `x` is a named function argument, allowing it to be used to the right side of the `->`.
+2. Using a lambda expression. The `\` is the $\lambda$ (lambda) sign, which declares that `x` is a named function argument, allowing it to be used to the right side of the `->`.
 3. Partial application of the `(-)` function. Had it instead been `(2 -)` the the partial application of minus would have bound up the left side argument. Still valid, but that's the function `subtractFromTwo`.
 
 Go wild with `:t` to understand how this works.
