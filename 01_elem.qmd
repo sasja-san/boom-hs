@@ -6,23 +6,33 @@ Let's start with looking at two versions of the same thing.
 Hopefully this can be a bridge between what you know and the style Haskell uses: [*Hint:* You can click the numbers in the list below and have the corresponding code be highlighted.]{.aside}
 
 ```{.c}
-int fact(int n);          /* <1> */
-int fact(int n)           /* <2> */
+int fact(int n);            /* <1> */
+int fact(int n)             /* <2> */
 {
-  return n * (fact(n-1)); /* <3> */
+  if (n <= 1)               /* <3> */
+  {                         /* <3> */
+    return 1;               /* <3> */
+  }                         /* <3> */
+  else                      /* <4> */
+  {                         /* <4> */
+    return n * (fact(n-1)); /* <4> */
+  }                         /* <4> */
 }
 ```
 1. The function *declaration*. Tells the compiler "this function exists" which helps out with ordering of function calls. Without this `main()` will always have to be last in `main.c`
 2. The function *definition* starts here. What the compiler uses to make assembly. First `int` is the return type, then comes the function name then the arguments. The `n` here is equivalent to what's to the left of the `=` in the Haskell function.
-3. A recursive call and a `return` statement. Because in C we differ between "statements" (things ending in `;` and some things using keywords like `for`) and "expressions" (all things arithmetic). `return (x + fact(x));` is a statement but `(x + fact(x))` is an expression. 
+3. The base case.
+4. A recursive call and a `return` statement. Because in C we differ between "statements" (things ending in `;` and some things using keywords like `for`) and "expressions" (all things arithmetic). `return (x + fact(x));` is a statement but `(x + fact(x))` is an expression. 
 
 
 ```{.haskell}
 fact :: Int -> Int          -- <1>
-fact n = n * (fact (n-1))   -- <2>
+fact 1 = 1                  -- <2>
+fact n = n * (fact (n-1))   -- <3>
 ```
 1. This is the *type signature* of the function. It says that it takes an `Int` (the first mention) and returns (the second mention) an `Int`.
-2. The n to the left of `=` is the argument to the function. Everything on the right side of `=` is the "return" expression. 
+2. Base case, but only for the number `1`. To cover `0`, either add a similar line *or* solve it with guards. To see how guards work, look at the implementation of `takeWhile` in the list of exercise.
+3. The n to the left of `=` is the argument to the function. Everything on the right side of `=` is the "return" expression. 
 
 
 Let's look at `elem`:

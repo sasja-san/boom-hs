@@ -50,7 +50,7 @@ True
 ```{.haskell}
 elem :: (Eq a) => a -> [a] -> Bool
 elem _    []  = False
-elem e (x:xs) = (e == x) || myElem e xs
+elem e (x:xs) = (e == x) || elem e xs
 ```
 :::
 
@@ -75,7 +75,7 @@ ghci> length (words "hej du glade")
 ```{.haskell}
 length :: [a] -> Int
 length    []  = 0
-length (_:xs) = 1 + myLength xs
+length (_:xs) = 1 + length xs
 ```
 :::
 
